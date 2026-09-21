@@ -1,0 +1,59 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "../vendor/shadcn-tailwind-4.13.0.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@utility scrollbar-thin { scrollbar-width: thin; }
+@utility scrollbar-none { scrollbar-width: none; &::-webkit-scrollbar { display: none; } }
+@utility scrollbar-gutter-stable { scrollbar-gutter: stable; }
+
+:root {
+  --background: #f6f8f7; --foreground: #142a31; --card: #ffffff; --card-foreground: #142a31;
+  --popover: #ffffff; --popover-foreground: #142a31; --primary: #173f45; --primary-foreground: #ffffff;
+  --secondary: #e8efec; --secondary-foreground: #173f45; --muted: #edf1ef; --muted-foreground: #637479;
+  --accent: #e3eee9; --accent-foreground: #173f45; --destructive: #b9383f; --border: #dce4e1;
+  --input: #d7e0dd; --ring: #df9243; --chart-1: #2c8b73; --chart-2: #df9243; --chart-3: #46718a;
+  --chart-4: #9971bd; --chart-5: #d16055; --radius: 0.8rem; --sidebar: #fbfcfb;
+  --sidebar-foreground: #173238; --sidebar-primary: #173f45; --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #e7efeb; --sidebar-accent-foreground: #173f45; --sidebar-border: #dce4e1;
+  --sidebar-ring: #df9243; --ink: #173238; --progress: #2e8a6f; --streak: #b65f20; --streak-soft: #fff0df;
+}
+
+@theme inline {
+  --color-background: var(--background); --color-foreground: var(--foreground);
+  --color-card: var(--card); --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover); --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary); --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary); --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted); --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent); --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive); --color-border: var(--border); --color-input: var(--input); --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1); --color-chart-2: var(--chart-2); --color-chart-3: var(--chart-3); --color-chart-4: var(--chart-4); --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar); --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary); --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent); --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border); --color-sidebar-ring: var(--sidebar-ring);
+  --color-ink: var(--ink); --color-progress: var(--progress); --color-streak: var(--streak); --color-streak-soft: var(--streak-soft);
+  --radius-sm: calc(var(--radius) - 4px); --radius-md: calc(var(--radius) - 2px); --radius-lg: var(--radius); --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: "Avenir Next", Avenir, "Segoe UI", system-ui, sans-serif;
+  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+}
+
+.dark {
+    --background: #0e171a; --foreground: #edf3f1; --card: #152226; --card-foreground: #edf3f1;
+    --popover: #152226; --popover-foreground: #edf3f1; --primary: #71c4a7; --primary-foreground: #0a211a;
+    --secondary: #1d3034; --secondary-foreground: #edf3f1; --muted: #1b2a2e; --muted-foreground: #9bacae;
+    --accent: #243b3c; --accent-foreground: #edf3f1; --destructive: #ff8588; --border: #2a3b3f;
+    --input: #31454a; --ring: #e9a960; --sidebar: #101c20; --sidebar-foreground: #edf3f1;
+    --sidebar-primary: #71c4a7; --sidebar-primary-foreground: #0a211a; --sidebar-accent: #203236;
+    --sidebar-accent-foreground: #edf3f1; --sidebar-border: #293a3e; --sidebar-ring: #e9a960;
+    --ink: #142a31; --progress: #57b698; --streak: #f1ab66; --streak-soft: #3c281c;
+}
+
+* { border-color: var(--border); }
+html { background: var(--background); }
+body { margin: 0; background: var(--background); color: var(--foreground); font-family: var(--font-sans); }
+button, a { -webkit-tap-highlight-color: transparent; }
+button:focus-visible, a:focus-visible { outline: 3px solid color-mix(in srgb, var(--ring) 72%, transparent); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; } }
