@@ -1,8 +1,9 @@
 import {
   BookOpen,
   ChevronRight,
+  ClipboardCheck,
+  CloudOff,
   Flame,
-  Headphones,
   Home,
   Library,
   MessageCircleMore,
@@ -13,39 +14,53 @@ import {
   Trophy,
 } from "lucide-react";
 import Link from "next/link";
+import { eq } from "drizzle-orm";
 
 import { getChatGPTUser } from "@/app/chatgpt-auth";
+import { AccountMenu } from "@/components/auth/account-menu";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { getDb } from "@/db";
+import { enrollments, lessonProgress } from "@/db/schema";
+import { isGermanLevel, listPublicLessons, type GermanLevel } from "@/infrastructure/catalog/lesson-content";
+import { countDueReviews } from "@/infrastructure/learning/personal-library";
+import { emptyProgressSummary, loadProgressSummary } from "@/infrastructure/learning/progress-summary";
+import { calculateLessonAccess } from "@/packages/domain/src/curriculum-progression";
 
 export const dynamic = "force-dynamic";
 
-const navigation = [
+const navigation = (dueReviews: number) => [
   { label: "Home", icon: Home, active: true },
   { label: "Learn", icon: BookOpen },
   { label: "Practice", icon: Sparkles },
-  { label: "Review", icon: Target, count: 18 },
+  { label: "Tests", icon: ClipboardCheck },
+  { label: "Review", icon: Target, count: dueReviews },
   { label: "Library", icon: Library },
-];
-
-const week = [
-  { day: "M", done: true },
-  { day: "T", done: true },
-  { day: "W", done: true },
-  { day: "T", done: true },
-  { day: "F", done: true },
-  { day: "S", done: false },
-  { day: "S", done: false },
+  { label: "Offline", icon: CloudOff },
 ];
 
 export default async function HomePage() {
   const user = await getChatGPTUser();
-  const firstName = user?.fullName?.split(" ")[0] ?? "Bishoy";
-  const todayLabel = new Intl.DateTimeFormat("en", { weekday: "long", day: "numeric", month: "long", timeZone: "Africa/Cairo" }).format(new Date());
+  const now = new Date();
+  const activeLevel = await loadActiveLevel(user?.userId);
+  const courseLessons = listPublicLessons(activeLevel);
+  const [savedLessons, dueReviews, progressSummary] = user
+    ? await Promise.all([loadLessonProgress(user.userId), safelyCountDueReviews(user.userId), safelyLoadProgressSummary(user.userId, now)])
+    : [[], 0, emptyProgressSummary(now)];
+  const savedByLesson = new Map(savedLessons.map((progress) => [progress.lessonId, progress]));
+  const lessonAccess = calculateLessonAccess(courseLessons.map((lesson) => lesson.id), savedLessons, Boolean(user));
+  const recommendedLessonId = lessonAccess.find((access) => access.recommended)?.lessonId;
+  const nextLesson = courseLessons.find((lesson) => lesson.id === recommendedLessonId) ?? courseLessons.at(-1)!;
+  const savedLesson = savedByLesson.get(nextLesson.id) ?? null;
+  const firstName = user?.fullName?.split(" ")[0] ?? "there";
+  const todayLabel = new Intl.DateTimeFormat("en", { weekday: "long", day: "numeric", month: "long", timeZone: progressSummary.timeZone }).format(now);
+  const courseProgress = Math.round(courseLessons.reduce((total, lesson) => total + (savedByLesson.get(lesson.id)?.percent ?? 0), 0) / courseLessons.length);
+  const bestQuiz = progressSummary.bestQuizScore;
+  const completedGoalsThisWeek = progressSummary.week.filter((day) => day.trackedMinutes >= progressSummary.dailyGoalMinutes).length;
 
   return (
-    <main className="min-h-screen bg-background pb-20 text-foreground lg:pb-0">
+    <main id="main-content" tabIndex={-1} className="min-h-screen bg-background pb-20 text-foreground lg:pb-0">
       <div className="mx-auto grid min-h-screen max-w-[1540px] grid-cols-1 lg:grid-cols-[240px_minmax(0,1fr)]">
         <aside className="hidden border-r border-border bg-sidebar px-5 py-7 lg:flex lg:flex-col">
           <Link className="flex items-center gap-3 px-2" href="/" aria-label="Language Guide home">
@@ -54,7 +69,7 @@ export default async function HomePage() {
           </Link>
 
           <nav aria-label="Primary" className="mt-11 space-y-1.5">
-            {navigation.map(({ label, icon: Icon, active, count }) => (
+            {navigation(dueReviews).map(({ label, icon: Icon, active, count }) => (
               <Link
                 key={label}
                 href={label === "Home" ? "/" : `/${label.toLowerCase()}`}
@@ -74,18 +89,21 @@ export default async function HomePage() {
 
           <section className="mt-auto rounded-2xl border border-border bg-card p-4 shadow-[0_8px_24px_rgba(26,42,48,0.06)]">
             <div className="flex items-center justify-between">
-              <span className="text-sm font-bold">Weekly goal</span>
-              <span className="text-xs font-semibold text-muted-foreground">5 / 7 days</span>
+              <span className="text-sm font-bold">Daily goals</span>
+              <span className="text-xs font-semibold text-muted-foreground">{user ? `${completedGoalsThisWeek} / 7 complete` : "Sign in to track"}</span>
             </div>
             <div className="mt-4 flex justify-between">
-              {week.map((item, index) => (
-                <div className="grid gap-1.5 text-center" key={`${item.day}-${index}`}>
-                  <span className={`grid size-6 place-items-center rounded-full text-[0.68rem] font-bold ${item.done ? "bg-progress text-white" : "bg-muted text-muted-foreground"}`}>
-                    {item.done ? "✓" : "·"}
-                  </span>
-                  <span className="text-[0.68rem] font-semibold text-muted-foreground">{item.day}</span>
-                </div>
-              ))}
+              {progressSummary.week.map((item) => {
+                const goalMet = item.trackedMinutes >= progressSummary.dailyGoalMinutes;
+                return (
+                  <div className="grid gap-1.5 text-center" key={item.dateKey}>
+                    <span className={`grid size-6 place-items-center rounded-full text-[0.68rem] font-bold ${goalMet ? "bg-progress text-white" : item.active ? "bg-accent text-progress" : "bg-muted text-muted-foreground"}`} aria-label={`${item.dateKey}: ${item.trackedMinutes} of ${progressSummary.dailyGoalMinutes} goal minutes${goalMet ? ", goal complete" : ""}`}>
+                      {goalMet ? "✓" : item.active ? "•" : "·"}
+                    </span>
+                    <span className="text-[0.68rem] font-semibold text-muted-foreground">{item.label}</span>
+                  </div>
+                );
+              })}
             </div>
           </section>
         </aside>
@@ -107,9 +125,7 @@ export default async function HomePage() {
                 <span className="hidden sm:inline">German</span>
                 <ChevronRight aria-hidden="true" className="size-3.5 rotate-90 text-muted-foreground" />
               </Link>
-              <button type="button" className="grid size-11 place-items-center rounded-full bg-ink text-sm font-bold text-white" aria-label="Open profile">
-                {firstName.slice(0, 1).toUpperCase()}
-              </button>
+              <AccountMenu user={user} />
             </div>
           </header>
 
@@ -122,7 +138,7 @@ export default async function HomePage() {
               </div>
               <div className="flex items-center gap-2 self-start rounded-full bg-streak-soft px-3.5 py-2 text-sm font-bold text-streak sm:self-auto">
                 <Flame aria-hidden="true" className="size-4 fill-current" />
-                12 day streak
+                {user ? progressSummary.currentStreak ? `${progressSummary.currentStreak} day streak` : "No active streak" : "Sign in to track"}
               </div>
             </section>
 
@@ -131,20 +147,20 @@ export default async function HomePage() {
                 <div className="absolute -right-14 -top-24 size-72 rounded-full border-[52px] border-white/[0.055]" aria-hidden="true" />
                 <div className="relative">
                   <div className="flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] text-white/65">
-                    <span>German A1</span><span aria-hidden="true">•</span><span>Foundations</span>
+                    <span>German {activeLevel}</span><span aria-hidden="true">•</span><span>{levelLabel(activeLevel)}</span>
                   </div>
                   <div className="mt-8 max-w-xl">
-                    <span className="inline-flex rounded-full bg-white/10 px-3 py-1 text-xs font-bold text-white/80">Lesson 4 of 12</span>
-                    <h2 className="font-display mt-4 text-[clamp(2rem,5vw,3.8rem)] font-bold leading-[0.98] tracking-[-0.055em]">At the bakery</h2>
-                    <p className="mt-4 max-w-md text-[0.98rem] leading-7 text-white/70">Order breakfast, ask about prices, and use polite requests with confidence.</p>
+                    <span className="inline-flex rounded-full bg-white/10 px-3 py-1 text-xs font-bold text-white/80">Lesson {nextLesson.order} of {courseLessons.length}{savedLesson?.state === "completed" ? " · Completed" : ""}</span>
+                    <h2 className="font-display mt-4 text-[clamp(2rem,5vw,3.8rem)] font-bold leading-[0.98] tracking-[-0.055em]">{nextLesson.title}</h2>
+                    <p className="mt-4 max-w-md text-[0.98rem] leading-7 text-white/70">{nextLesson.summary}</p>
                   </div>
                   <div className="mt-8 grid gap-3 sm:grid-cols-[1fr_auto] sm:items-end">
                     <div>
-                      <div className="mb-2 flex justify-between text-xs font-bold text-white/65"><span>Chapter progress</span><span>62%</span></div>
-                      <Progress value={62} aria-label="Chapter progress: 62 percent" className="h-2.5 bg-white/15 [&_[data-slot=progress-indicator]]:bg-progress" />
+                      <div className="mb-2 flex justify-between text-xs font-bold text-white/65"><span>Course progress</span><span>{courseProgress}%</span></div>
+                      <Progress value={courseProgress} aria-label={`Course progress: ${courseProgress} percent`} className="h-2.5 bg-white/15 [&_[data-slot=progress-indicator]]:bg-progress" />
                     </div>
                     <Button asChild size="lg" className="h-12 rounded-xl bg-white px-5 font-bold text-ink hover:bg-white/90">
-                      <Link href="/learn/de/a1/at-the-bakery">Continue lesson<ChevronRight aria-hidden="true" /></Link>
+                      <Link href={`/learn/de/${activeLevel.toLowerCase()}/${nextLesson.slug}`}>{savedLesson?.state === "completed" ? "Review lesson" : savedLesson ? "Continue lesson" : "Start lesson"}<ChevronRight aria-hidden="true" /></Link>
                     </Button>
                   </div>
                 </div>
@@ -152,14 +168,14 @@ export default async function HomePage() {
 
               <article className="rounded-[28px] border border-border bg-card p-6 shadow-[0_14px_40px_rgba(22,44,52,0.07)] sm:p-7">
                 <div className="flex items-start justify-between gap-3">
-                  <div><p className="text-sm font-bold text-progress">Today&apos;s review</p><h2 className="font-display mt-1 text-2xl font-bold tracking-[-0.04em]">18 items due</h2></div>
+                  <div><p className="text-sm font-bold text-progress">Today&apos;s review</p><h2 className="font-display mt-1 text-2xl font-bold tracking-[-0.04em]">{dueReviews ? `${dueReviews} ${dueReviews === 1 ? "item" : "items"} due` : "Queue clear"}</h2></div>
                   <button type="button" className="grid size-10 place-items-center rounded-full text-muted-foreground hover:bg-muted" aria-label="Review options"><MoreHorizontal aria-hidden="true" className="size-5" /></button>
                 </div>
                 <div className="mt-6 space-y-3">
-                  <div className="flex items-center gap-3 rounded-2xl bg-muted/70 p-3.5"><span className="grid size-10 place-items-center rounded-xl bg-card text-lg shadow-xs" aria-hidden="true">Aa</span><div><p className="text-sm font-bold">Vocabulary</p><p className="text-xs text-muted-foreground">12 words</p></div><span className="ml-auto text-sm font-bold">8 min</span></div>
-                  <div className="flex items-center gap-3 rounded-2xl bg-muted/70 p-3.5"><span className="grid size-10 place-items-center rounded-xl bg-card shadow-xs" aria-hidden="true"><MessageCircleMore className="size-4" /></span><div><p className="text-sm font-bold">Sentences</p><p className="text-xs text-muted-foreground">6 phrases</p></div><span className="ml-auto text-sm font-bold">5 min</span></div>
+                  <div className="flex items-center gap-3 rounded-2xl bg-muted/70 p-3.5"><span className="grid size-10 place-items-center rounded-xl bg-card text-lg shadow-xs" aria-hidden="true">Aa</span><div><p className="text-sm font-bold">Vocabulary</p><p className="text-xs text-muted-foreground">{dueReviews ? `${dueReviews} ready to recall` : "Nothing due right now"}</p></div><span className="ml-auto text-sm font-bold">{dueReviews ? `${Math.max(1, Math.ceil(dueReviews / 2))} min` : "Done"}</span></div>
+                  <div className="flex items-center gap-3 rounded-2xl bg-muted/70 p-3.5"><span className="grid size-10 place-items-center rounded-xl bg-card shadow-xs" aria-hidden="true"><MessageCircleMore className="size-4" /></span><div><p className="text-sm font-bold">Smart timing</p><p className="text-xs text-muted-foreground">Each answer sets the next review</p></div></div>
                 </div>
-                <Button variant="outline" className="mt-5 h-11 w-full rounded-xl font-bold">Start 13-minute review</Button>
+                <Button asChild variant="outline" className="mt-5 h-11 w-full rounded-xl font-bold"><Link href="/review">{dueReviews ? "Start review" : "View review queue"}</Link></Button>
               </article>
             </section>
 
@@ -170,10 +186,10 @@ export default async function HomePage() {
               </div>
               <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
                 {[
-                  { label: "Daily goal", value: "24 / 30", note: "minutes", icon: Target },
-                  { label: "Words learned", value: "284", note: "+12 this week", icon: BookOpen },
-                  { label: "Listening", value: "76%", note: "on track", icon: Headphones },
-                  { label: "Best quiz", value: "92%", note: "Personal best", icon: Trophy },
+                  { label: "Daily goal", value: `${progressSummary.todayTrackedMinutes} / ${progressSummary.dailyGoalMinutes}`, note: user ? `tracked min · ${progressSummary.todayActions} ${progressSummary.todayActions === 1 ? "activity" : "activities"}` : "Sign in to track", icon: Target },
+                  { label: "Words saved", value: String(progressSummary.wordsSaved), note: progressSummary.wordsMastered ? `${progressSummary.wordsMastered} mastered` : user ? "Saved to your library" : "Sign in to track", icon: BookOpen },
+                  { label: "Reviews completed", value: String(progressSummary.reviewsCompleted), note: user ? "Recorded review answers" : "Sign in to track", icon: MessageCircleMore },
+                  { label: "Best quiz", value: bestQuiz ? `${bestQuiz}%` : "—", note: bestQuiz ? "Personal best" : "Complete a lesson", icon: Trophy },
                 ].map(({ label, value, note, icon: Icon }) => (
                   <article key={label} className="rounded-2xl border border-border bg-card p-5 shadow-[0_8px_24px_rgba(22,44,52,0.045)]">
                     <div className="flex items-center justify-between"><p className="text-sm font-semibold text-muted-foreground">{label}</p><Icon aria-hidden="true" className="size-[18px] text-progress" /></div>
@@ -186,7 +202,7 @@ export default async function HomePage() {
           </div>
         </div>
       </div>
-      <nav aria-label="Mobile navigation" className="fixed inset-x-3 bottom-3 z-30 grid grid-cols-4 rounded-2xl border border-border bg-card/95 p-1.5 shadow-[0_16px_45px_rgba(7,24,29,0.2)] backdrop-blur lg:hidden">
+      <nav aria-label="Mobile navigation" className="safe-bottom fixed inset-x-3 bottom-3 z-30 grid grid-cols-4 rounded-2xl border border-border bg-card/95 p-1.5 shadow-[0_16px_45px_rgba(7,24,29,0.2)] backdrop-blur lg:hidden">
         {[
           { label: "Home", href: "/", icon: Home },
           { label: "Learn", href: "/learn", icon: BookOpen },
@@ -201,4 +217,46 @@ export default async function HomePage() {
       </nav>
     </main>
   );
+}
+
+async function loadLessonProgress(userId: string) {
+  try {
+    return await getDb().select().from(lessonProgress).where(eq(lessonProgress.userId, userId));
+  } catch (error) {
+    console.error("Failed to load dashboard lesson progress", error);
+    return [];
+  }
+}
+
+async function loadActiveLevel(userId: string | undefined): Promise<GermanLevel> {
+  if (!userId) return "A1";
+  try {
+    const [enrollment] = await getDb().select({ level: enrollments.currentLevelCode }).from(enrollments).where(eq(enrollments.userId, userId)).limit(1);
+    return enrollment?.level && isGermanLevel(enrollment.level) ? enrollment.level : "A1";
+  } catch (error) {
+    console.error("Failed to load active German level", error);
+    return "A1";
+  }
+}
+
+function levelLabel(level: GermanLevel) {
+  return ({ A1: "Foundations", A2: "Everyday connections", B1: "Independent use" } as const)[level];
+}
+
+async function safelyCountDueReviews(userId: string) {
+  try {
+    return await countDueReviews(userId);
+  } catch (error) {
+    console.error("Failed to count due reviews", error);
+    return 0;
+  }
+}
+
+async function safelyLoadProgressSummary(userId: string, now: Date) {
+  try {
+    return await loadProgressSummary(userId, now);
+  } catch (error) {
+    console.error("Failed to load dashboard progress summary", error);
+    return emptyProgressSummary(now);
+  }
 }

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { OfflineRuntime } from "@/components/offline/offline-runtime";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
@@ -21,7 +22,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="antialiased"><ThemeProvider>{children}</ThemeProvider></body>
+      <body className="antialiased">
+        <ThemeProvider>
+          <a href="#main-content" className="skip-link">Skip to main content</a>
+          <OfflineRuntime />
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

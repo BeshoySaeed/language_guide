@@ -8,6 +8,41 @@
       "when": 1790024569533,
       "tag": "0000_charming_whizzer",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1790064095385,
+      "tag": "0001_phase_3_learning",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1790065347621,
+      "tag": "0002_phase_4_personal_learning",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1790066284194,
+      "tag": "0003_phase_5_practice_challenges",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1790092541056,
+      "tag": "0004_authentication",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1790208000000,
+      "tag": "0005_a1_mastery_results",
+      "breakpoints": true
     }
   ]
 }

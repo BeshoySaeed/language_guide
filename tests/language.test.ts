@@ -14,7 +14,8 @@ const language: Language = {
 
 describe("language level rules", () => {
   it("recognizes supported CEFR values", () => {
-    assert.equal(isCefrLevel("B2"), true);
+    assert.equal(isCefrLevel("B1"), true);
+    assert.equal(isCefrLevel("B2"), false);
     assert.equal(isCefrLevel("C1"), false);
   });
 
@@ -23,4 +24,3 @@ describe("language level rules", () => {
     assert.throws(() => assertSupportedLevel(language, "B1"), /not available/);
   });
 });
-

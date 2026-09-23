@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "status": "in_progress",
+  "startedAt": "YYYY-MM-DD",
+  "completedAt": null,
+  "participants": 10,
+  "completedParticipants": 0,
+  "journey": "Register, complete the assigned A1-to-B1 curriculum and checkpoints, review saved vocabulary, and verify progress across two devices.",
+  "openCriticalFindings": 0,
+  "openHighFindings": 0,
+  "notes": "Use anonymous participant IDs. Keep consent records and personal data outside this repository."
+}

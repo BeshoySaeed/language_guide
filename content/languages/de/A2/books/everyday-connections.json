@@ -1,0 +1,470 @@
+{
+  "schemaVersion": 1,
+  "id": "book_de_a2_connections",
+  "languageCode": "de",
+  "levelCode": "A2",
+  "slug": "everyday-connections",
+  "title": "Everyday connections",
+  "description": "Practical German for plans, experiences, and changing everyday situations.",
+  "status": "reviewed",
+  "revision": 1,
+  "provenance": {
+    "author": "Language Guide editorial",
+    "reviewedBy": "Initial German scope curriculum review",
+    "reviewedAt": "2026-09-22"
+  },
+  "chapters": [{
+    "id": "chapter_de_a2_connections",
+    "slug": "everyday-connections",
+    "title": "Everyday connections",
+    "description": "Make plans, describe past experiences, and handle practical changes.",
+    "lessons": [
+      {
+        "id": "lesson_de_a2_plans",
+        "slug": "making-plans",
+        "title": "Making plans",
+        "summary": "Suggest an activity, agree on a time, and change a plan politely.",
+        "estimatedMinutes": 12,
+        "status": "published",
+        "revision": 1,
+        "heroTitle": "Turn an idea into a real plan.",
+        "completionTitle": "You can arrange a meeting in German.",
+        "objectives": [
+          "Suggest an activity with wollen or können",
+          "Agree on a day and time",
+          "Cancel or rearrange a plan politely"
+        ],
+        "vocabulary": [
+          { "id": "vocab_de_a2_sich_treffen", "lemma": "sich treffen", "translation": "to meet", "pronunciation": "zikh TREF-fen", "partOfSpeech": "verb", "languageFeatures": { "reflexive": true } },
+          { "id": "vocab_de_a2_vorschlagen", "lemma": "vorschlagen", "translation": "to suggest", "pronunciation": "FOR-shlah-gen", "partOfSpeech": "verb", "languageFeatures": { "separable": true } },
+          { "id": "vocab_de_a2_passen", "lemma": "passen", "translation": "to suit / work", "pronunciation": "PAS-sen", "partOfSpeech": "verb", "languageFeatures": {} },
+          { "id": "vocab_de_a2_absagen", "lemma": "absagen", "translation": "to cancel", "pronunciation": "AP-zah-gen", "partOfSpeech": "verb", "languageFeatures": { "separable": true } },
+          { "id": "vocab_de_a2_vielleicht", "lemma": "vielleicht", "translation": "perhaps / maybe", "pronunciation": "fee-LYKHT", "partOfSpeech": "adverb", "languageFeatures": {} },
+          { "id": "vocab_de_a2_wochenende", "lemma": "das Wochenende", "translation": "weekend", "pronunciation": "VO-khen-en-duh", "partOfSpeech": "noun", "languageFeatures": { "gender": "neuter", "plural": "die Wochenenden" } }
+        ],
+        "sentences": [
+          { "id": "sentence_de_a2_plans_1", "text": "Wollen wir uns am Samstag treffen?", "translation": "Shall we meet on Saturday?", "note": "Wollen wir is a direct but friendly way to suggest a shared plan." },
+          { "id": "sentence_de_a2_plans_2", "text": "Ich schlage das neue Café vor.", "translation": "I suggest the new café.", "note": "The prefix vor moves to the end in a main clause." },
+          { "id": "sentence_de_a2_plans_3", "text": "Passt dir vier Uhr?", "translation": "Does four o'clock work for you?", "note": "Dir identifies the person for whom the time is suitable." },
+          { "id": "sentence_de_a2_plans_4", "text": "Leider muss ich absagen.", "translation": "Unfortunately, I have to cancel.", "note": "Leider softens disappointing information." },
+          { "id": "sentence_de_a2_plans_5", "text": "Vielleicht klappt es am Sonntag.", "translation": "Maybe Sunday will work.", "note": "Klappt es is a common conversational way to say that something works out." }
+        ],
+        "grammar": {
+          "id": "grammar_de_a2_separable_plans",
+          "title": "Separable verbs in plans",
+          "explanation": "In a main clause, the prefix of a separable verb goes to the end. With a modal verb, the full infinitive stays together at the end.",
+          "pattern": "Ich schlage etwas vor. / Ich muss leider absagen.",
+          "examples": [
+            { "source": "Mira schlägt einen Spaziergang vor.", "translation": "Mira suggests a walk." },
+            { "source": "Wir müssen das Treffen absagen.", "translation": "We have to cancel the meeting." }
+          ],
+          "commonMistake": "Do not separate the verb after a modal: say wir müssen absagen, not wir müssen sagen ab."
+        },
+        "reading": {
+          "id": "reading_de_a2_plans_chat",
+          "title": "A changing weekend plan",
+          "lines": [
+            { "speaker": "Mira", "text": "Wollen wir uns am Samstag treffen?", "translation": "Shall we meet on Saturday?" },
+            { "speaker": "Jonas", "text": "Gern. Was schlägst du vor?", "translation": "Gladly. What do you suggest?" },
+            { "speaker": "Mira", "text": "Das neue Café. Passt dir vier Uhr?", "translation": "The new café. Does four o'clock work for you?" },
+            { "speaker": "Jonas", "text": "Leider nicht. Vielleicht klappt es am Sonntag.", "translation": "Unfortunately not. Maybe Sunday will work." }
+          ]
+        },
+        "practice": {
+          "id": "practice_de_a2_plans",
+          "passThreshold": 67,
+          "questions": [
+            { "id": "practice_de_a2_plans_1", "type": "multiple_choice", "instruction": "Choose the matching meaning.", "prompt": "absagen", "choices": ["to cancel", "to arrive", "to invite"], "correctAnswer": "to cancel", "explanation": "Absagen means to cancel a plan or appointment.", "skill": "vocabulary" },
+            { "id": "practice_de_a2_plans_2", "type": "multiple_choice", "instruction": "Complete the separable verb.", "prompt": "Ich schlage einen Spaziergang ___.", "choices": ["vor", "ab", "an"], "correctAnswer": "vor", "explanation": "Vorschlagen separates into schlage ... vor.", "skill": "grammar" },
+            { "id": "practice_de_a2_plans_3", "type": "multiple_choice", "instruction": "Choose the polite question.", "prompt": "Ask whether four o'clock works.", "choices": ["Passt dir vier Uhr?", "Vier Uhr ist falsch?", "Du passt um vier Uhr?"], "correctAnswer": "Passt dir vier Uhr?", "explanation": "Passt dir ...? asks whether a time is suitable.", "skill": "reading" }
+          ]
+        },
+        "quiz": {
+          "id": "quiz_de_a2_plans",
+          "title": "Plans check",
+          "passThreshold": 80,
+          "questions": [
+            { "id": "quiz_de_a2_plans_1", "type": "multiple_choice", "instruction": "Choose the German expression.", "prompt": "maybe", "choices": ["vielleicht", "leider", "zusammen"], "correctAnswer": "vielleicht", "explanation": "Vielleicht means maybe or perhaps.", "skill": "vocabulary" },
+            { "id": "quiz_de_a2_plans_2", "type": "multiple_choice", "instruction": "Complete the sentence.", "prompt": "Was schlägst du ___?", "choices": ["vor", "ab", "mit"], "correctAnswer": "vor", "explanation": "The prefix of vorschlagen moves to the end.", "skill": "grammar" },
+            { "id": "quiz_de_a2_plans_3", "type": "multiple_choice", "instruction": "Choose the natural reply.", "prompt": "Passt dir Samstag?", "choices": ["Ja, das passt gut.", "Ja, ich passe Samstag.", "Nein, Samstag sagt ab."], "correctAnswer": "Ja, das passt gut.", "explanation": "Das passt confirms that the proposed time works.", "skill": "reading" },
+            { "id": "quiz_de_a2_plans_4", "type": "multiple_choice", "instruction": "Choose the correct word order.", "prompt": "We have to cancel.", "choices": ["Wir müssen absagen.", "Wir absagen müssen.", "Wir müssen sagen ab."], "correctAnswer": "Wir müssen absagen.", "explanation": "The infinitive remains together after the modal verb.", "skill": "grammar" },
+            { "id": "quiz_de_a2_plans_5", "type": "multiple_choice", "instruction": "Recall the dialogue.", "prompt": "When might the meeting happen?", "choices": ["On Sunday", "On Friday", "On Monday"], "correctAnswer": "On Sunday", "explanation": "Jonas says that Sunday might work.", "skill": "reading" }
+          ]
+        }
+      },
+      {
+        "id": "lesson_de_a2_weekend",
+        "slug": "a-weekend-away",
+        "title": "A weekend away",
+        "summary": "Describe a short trip and talk about what happened in the past.",
+        "estimatedMinutes": 14,
+        "status": "published",
+        "revision": 1,
+        "heroTitle": "Bring a past weekend to life.",
+        "completionTitle": "You can describe a short trip.",
+        "objectives": [
+          "Name common parts of a short journey",
+          "Build the perfect tense with haben and sein",
+          "Tell events in a clear sequence"
+        ],
+        "vocabulary": [
+          { "id": "vocab_de_a2_reise", "lemma": "die Reise", "translation": "journey / trip", "pronunciation": "RY-zuh", "partOfSpeech": "noun", "languageFeatures": { "gender": "feminine", "plural": "die Reisen" } },
+          { "id": "vocab_de_a2_buchen", "lemma": "buchen", "translation": "to book", "pronunciation": "BOO-khen", "partOfSpeech": "verb", "languageFeatures": { "regular": true } },
+          { "id": "vocab_de_a2_uebernachten", "lemma": "übernachten", "translation": "to stay overnight", "pronunciation": "UE-ber-nakh-ten", "partOfSpeech": "verb", "languageFeatures": { "regular": true } },
+          { "id": "vocab_de_a2_besuchen", "lemma": "besuchen", "translation": "to visit", "pronunciation": "buh-ZOO-khen", "partOfSpeech": "verb", "languageFeatures": { "regular": true } },
+          { "id": "vocab_de_a2_gefahren", "lemma": "gefahren", "translation": "traveled / driven", "pronunciation": "guh-FAH-ren", "partOfSpeech": "participle", "languageFeatures": { "auxiliary": "sein" } },
+          { "id": "vocab_de_a2_gestern", "lemma": "gestern", "translation": "yesterday", "pronunciation": "GES-tern", "partOfSpeech": "adverb", "languageFeatures": {} }
+        ],
+        "sentences": [
+          { "id": "sentence_de_a2_weekend_1", "text": "Wir sind nach Hamburg gefahren.", "translation": "We traveled to Hamburg.", "note": "Movement verbs such as fahren usually form the perfect tense with sein." },
+          { "id": "sentence_de_a2_weekend_2", "text": "Ich habe ein kleines Hotel gebucht.", "translation": "I booked a small hotel.", "note": "Most transitive verbs form the perfect tense with haben." },
+          { "id": "sentence_de_a2_weekend_3", "text": "Dort haben wir Freunde besucht.", "translation": "We visited friends there.", "note": "The time or place can come first, followed by the conjugated verb." },
+          { "id": "sentence_de_a2_weekend_4", "text": "Am Abend sind wir lange spazieren gegangen.", "translation": "In the evening, we went for a long walk.", "note": "Gehen uses sein in the perfect tense." },
+          { "id": "sentence_de_a2_weekend_5", "text": "Die Reise hat uns sehr gut gefallen.", "translation": "We liked the trip very much.", "note": "Gefallen uses the dative pronoun uns for the people who liked it." }
+        ],
+        "grammar": {
+          "id": "grammar_de_a2_perfect",
+          "title": "The perfect tense with haben and sein",
+          "explanation": "Use haben with most verbs. Use sein mainly with movement or a change of state. The past participle normally appears at the end of the clause.",
+          "pattern": "haben/sein + ... + past participle",
+          "examples": [
+            { "source": "Ich habe ein Zimmer gebucht.", "translation": "I booked a room." },
+            { "source": "Wir sind nach Hamburg gefahren.", "translation": "We traveled to Hamburg." }
+          ],
+          "commonMistake": "Do not use haben with fahren when it describes travel: say wir sind gefahren."
+        },
+        "reading": {
+          "id": "reading_de_a2_weekend_story",
+          "title": "Two days in Hamburg",
+          "lines": [
+            { "speaker": "Nora", "text": "Wie war euer Wochenende?", "translation": "How was your weekend?" },
+            { "speaker": "Elias", "text": "Wir sind nach Hamburg gefahren.", "translation": "We traveled to Hamburg." },
+            { "speaker": "Nora", "text": "Wo habt ihr übernachtet?", "translation": "Where did you stay overnight?" },
+            { "speaker": "Elias", "text": "In einem kleinen Hotel. Am Sonntag haben wir Freunde besucht.", "translation": "In a small hotel. On Sunday we visited friends." }
+          ]
+        },
+        "practice": {
+          "id": "practice_de_a2_weekend",
+          "passThreshold": 67,
+          "questions": [
+            { "id": "practice_de_a2_weekend_1", "type": "multiple_choice", "instruction": "Choose the matching meaning.", "prompt": "übernachten", "choices": ["to stay overnight", "to reserve a table", "to depart"], "correctAnswer": "to stay overnight", "explanation": "Übernachten means to spend the night somewhere.", "skill": "vocabulary" },
+            { "id": "practice_de_a2_weekend_2", "type": "multiple_choice", "instruction": "Choose the correct auxiliary.", "prompt": "Wir ___ nach Berlin gefahren.", "choices": ["sind", "haben", "werden"], "correctAnswer": "sind", "explanation": "Fahren as movement forms the perfect tense with sein.", "skill": "grammar" },
+            { "id": "practice_de_a2_weekend_3", "type": "multiple_choice", "instruction": "Choose the matching sentence.", "prompt": "We visited friends there.", "choices": ["Dort haben wir Freunde besucht.", "Dort sind Freunde gefahren.", "Freunde haben dort gebucht."], "correctAnswer": "Dort haben wir Freunde besucht.", "explanation": "Besucht is the past participle of besuchen.", "skill": "reading" }
+          ]
+        },
+        "quiz": {
+          "id": "quiz_de_a2_weekend",
+          "title": "Weekend check",
+          "passThreshold": 80,
+          "questions": [
+            { "id": "quiz_de_a2_weekend_1", "type": "multiple_choice", "instruction": "Choose the German word.", "prompt": "trip", "choices": ["die Reise", "das Treffen", "die Miete"], "correctAnswer": "die Reise", "explanation": "Die Reise means a journey or trip.", "skill": "vocabulary" },
+            { "id": "quiz_de_a2_weekend_2", "type": "multiple_choice", "instruction": "Complete the sentence.", "prompt": "Ich ___ ein Hotel gebucht.", "choices": ["habe", "bin", "werde"], "correctAnswer": "habe", "explanation": "Buchen forms the perfect tense with haben.", "skill": "grammar" },
+            { "id": "quiz_de_a2_weekend_3", "type": "multiple_choice", "instruction": "Choose the correct word order.", "prompt": "On Sunday we visited friends.", "choices": ["Am Sonntag haben wir Freunde besucht.", "Am Sonntag wir haben besucht Freunde.", "Wir Freunde am Sonntag besucht haben."], "correctAnswer": "Am Sonntag haben wir Freunde besucht.", "explanation": "The conjugated verb stays second and the participle goes to the end.", "skill": "grammar" },
+            { "id": "quiz_de_a2_weekend_4", "type": "multiple_choice", "instruction": "Choose the natural question.", "prompt": "Ask where someone stayed.", "choices": ["Wo habt ihr übernachtet?", "Wo seid ihr gebucht?", "Was habt ihr gefahren?"], "correctAnswer": "Wo habt ihr übernachtet?", "explanation": "Übernachten asks about staying for the night.", "skill": "reading" },
+            { "id": "quiz_de_a2_weekend_5", "type": "multiple_choice", "instruction": "Recall the story.", "prompt": "What did they do on Sunday?", "choices": ["They visited friends.", "They booked a flight.", "They worked at the hotel."], "correctAnswer": "They visited friends.", "explanation": "Elias says they visited friends on Sunday.", "skill": "reading" }
+          ]
+        }
+      },
+      {
+        "id": "lesson_de_a2_flat",
+        "slug": "finding-a-flat",
+        "title": "Finding a flat",
+        "summary": "Compare homes, explain your priorities, and arrange a viewing.",
+        "estimatedMinutes": 14,
+        "status": "published",
+        "revision": 1,
+        "heroTitle": "Find a place that feels right.",
+        "completionTitle": "You can discuss a flat and your priorities.",
+        "objectives": [
+          "Understand common housing vocabulary",
+          "Compare two homes with comparative forms",
+          "Give a reason with weil"
+        ],
+        "vocabulary": [
+          { "id": "vocab_de_a2_wohnung", "lemma": "die Wohnung", "translation": "flat / apartment", "pronunciation": "VOH-noong", "partOfSpeech": "noun", "languageFeatures": { "gender": "feminine", "plural": "die Wohnungen" } },
+          { "id": "vocab_de_a2_miete", "lemma": "die Miete", "translation": "rent", "pronunciation": "MEE-tuh", "partOfSpeech": "noun", "languageFeatures": { "gender": "feminine", "plural": "die Mieten" } },
+          { "id": "vocab_de_a2_umziehen", "lemma": "umziehen", "translation": "to move house", "pronunciation": "OOM-tsee-en", "partOfSpeech": "verb", "languageFeatures": { "separable": true } },
+          { "id": "vocab_de_a2_ruhig", "lemma": "ruhig", "translation": "quiet", "pronunciation": "ROO-ikh", "partOfSpeech": "adjective", "languageFeatures": {} },
+          { "id": "vocab_de_a2_zentral", "lemma": "zentral", "translation": "central", "pronunciation": "tsen-TRAHL", "partOfSpeech": "adjective", "languageFeatures": {} },
+          { "id": "vocab_de_a2_besichtigung", "lemma": "die Besichtigung", "translation": "viewing", "pronunciation": "buh-ZIKH-ti-goong", "partOfSpeech": "noun", "languageFeatures": { "gender": "feminine", "plural": "die Besichtigungen" } }
+        ],
+        "sentences": [
+          { "id": "sentence_de_a2_flat_1", "text": "Die Wohnung ist heller als die andere.", "translation": "The flat is brighter than the other one.", "note": "Use the comparative adjective plus als to compare unequal things." },
+          { "id": "sentence_de_a2_flat_2", "text": "Mir ist eine ruhige Lage wichtig.", "translation": "A quiet location is important to me.", "note": "Mir ist ... wichtig expresses a personal priority." },
+          { "id": "sentence_de_a2_flat_3", "text": "Ich möchte umziehen, weil die Miete zu hoch ist.", "translation": "I want to move because the rent is too high.", "note": "In a weil clause, the conjugated verb moves to the end." },
+          { "id": "sentence_de_a2_flat_4", "text": "Ist die Wohnung noch frei?", "translation": "Is the flat still available?", "note": "Frei is commonly used for an available room or flat." },
+          { "id": "sentence_de_a2_flat_5", "text": "Wann ist eine Besichtigung möglich?", "translation": "When is a viewing possible?", "note": "This is a polite, concise question for a landlord or agent." }
+        ],
+        "grammar": {
+          "id": "grammar_de_a2_weil",
+          "title": "Giving reasons with weil",
+          "explanation": "Weil introduces a reason. In the weil clause, the conjugated verb moves to the end. A comma separates the main clause and the reason.",
+          "pattern": "main clause, weil + subject + ... + verb.",
+          "examples": [
+            { "source": "Ich ziehe um, weil die Wohnung zu klein ist.", "translation": "I am moving because the flat is too small." },
+            { "source": "Die Lage gefällt mir, weil sie ruhig ist.", "translation": "I like the location because it is quiet." }
+          ],
+          "commonMistake": "After weil, put the conjugated verb at the end: weil die Miete hoch ist."
+        },
+        "reading": {
+          "id": "reading_de_a2_flat_call",
+          "title": "Calling about a flat",
+          "lines": [
+            { "speaker": "Lea", "text": "Guten Tag. Ist die Wohnung noch frei?", "translation": "Hello. Is the flat still available?" },
+            { "speaker": "Makler", "text": "Ja. Sie ist zentral und sehr hell.", "translation": "Yes. It is central and very bright." },
+            { "speaker": "Lea", "text": "Das klingt gut, weil mir eine zentrale Lage wichtig ist.", "translation": "That sounds good because a central location is important to me." },
+            { "speaker": "Makler", "text": "Eine Besichtigung ist morgen um sechs möglich.", "translation": "A viewing is possible tomorrow at six." }
+          ]
+        },
+        "practice": {
+          "id": "practice_de_a2_flat",
+          "passThreshold": 67,
+          "questions": [
+            { "id": "practice_de_a2_flat_1", "type": "multiple_choice", "instruction": "Choose the matching meaning.", "prompt": "die Miete", "choices": ["rent", "viewing", "location"], "correctAnswer": "rent", "explanation": "Die Miete is the money paid regularly for a home.", "skill": "vocabulary" },
+            { "id": "practice_de_a2_flat_2", "type": "multiple_choice", "instruction": "Complete the reason.", "prompt": "Ich ziehe um, weil die Wohnung zu klein ___.", "choices": ["ist", "sein", "sind"], "correctAnswer": "ist", "explanation": "The conjugated verb goes to the end of the weil clause.", "skill": "grammar" },
+            { "id": "practice_de_a2_flat_3", "type": "multiple_choice", "instruction": "Choose the natural question.", "prompt": "Ask to arrange a viewing.", "choices": ["Wann ist eine Besichtigung möglich?", "Wie kostet die Wohnung frei?", "Wo zieht die Miete um?"], "correctAnswer": "Wann ist eine Besichtigung möglich?", "explanation": "This asks when a viewing can take place.", "skill": "reading" }
+          ]
+        },
+        "quiz": {
+          "id": "quiz_de_a2_flat",
+          "title": "Housing check",
+          "passThreshold": 80,
+          "questions": [
+            { "id": "quiz_de_a2_flat_1", "type": "multiple_choice", "instruction": "Choose the German word.", "prompt": "quiet", "choices": ["ruhig", "zentral", "heller"], "correctAnswer": "ruhig", "explanation": "Ruhig means quiet or peaceful.", "skill": "vocabulary" },
+            { "id": "quiz_de_a2_flat_2", "type": "multiple_choice", "instruction": "Choose the correct comparison.", "prompt": "The flat is brighter than the other one.", "choices": ["Die Wohnung ist heller als die andere.", "Die Wohnung ist hell als die andere.", "Die Wohnung ist am heller andere."], "correctAnswer": "Die Wohnung ist heller als die andere.", "explanation": "Heller is the comparative form and als introduces the comparison.", "skill": "grammar" },
+            { "id": "quiz_de_a2_flat_3", "type": "multiple_choice", "instruction": "Choose the correct word order.", "prompt": "because the rent is too high", "choices": ["weil die Miete zu hoch ist", "weil ist die Miete zu hoch", "weil die Miete ist zu hoch"], "correctAnswer": "weil die Miete zu hoch ist", "explanation": "The verb is moves to the end after weil.", "skill": "grammar" },
+            { "id": "quiz_de_a2_flat_4", "type": "multiple_choice", "instruction": "Choose the matching question.", "prompt": "Is the flat still available?", "choices": ["Ist die Wohnung noch frei?", "Ist die Miete noch ruhig?", "Zieht die Wohnung noch um?"], "correctAnswer": "Ist die Wohnung noch frei?", "explanation": "Frei describes an available flat.", "skill": "reading" },
+            { "id": "quiz_de_a2_flat_5", "type": "multiple_choice", "instruction": "Recall the call.", "prompt": "When is the viewing?", "choices": ["Tomorrow at six", "Today at four", "Saturday at noon"], "correctAnswer": "Tomorrow at six", "explanation": "The agent offers a viewing tomorrow at six.", "skill": "reading" }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "chapter_de_a2_practical_day",
+    "slug": "a-practical-day",
+    "title": "A practical day",
+    "description": "Shop confidently, find your way through town, and explain a simple health problem.",
+    "lessons": [
+      {
+        "id": "lesson_de_a2_smart_shopping",
+        "slug": "smart-shopping",
+        "title": "Smart shopping",
+        "summary": "Ask for another size, try something on, and handle a return politely.",
+        "estimatedMinutes": 13,
+        "status": "published",
+        "revision": 1,
+        "heroTitle": "Find what fits and ask with confidence.",
+        "completionTitle": "You can manage a clothing purchase in German.",
+        "objectives": [
+          "Ask for a different size or color",
+          "Describe how an item fits",
+          "Request an exchange with a receipt"
+        ],
+        "vocabulary": [
+          { "id": "vocab_de_a2_sonderangebot", "lemma": "das Sonderangebot", "translation": "special offer", "pronunciation": "ZON-der-an-guh-boht", "partOfSpeech": "noun", "languageFeatures": { "gender": "neuter", "plural": "die Sonderangebote" } },
+          { "id": "vocab_de_a2_anprobieren", "lemma": "anprobieren", "translation": "to try on", "pronunciation": "AN-pro-bee-ren", "partOfSpeech": "verb", "languageFeatures": { "separable": true } },
+          { "id": "vocab_de_a2_passen_kleidung", "lemma": "passen", "translation": "to fit", "pronunciation": "PAS-sen", "partOfSpeech": "verb", "languageFeatures": { "dativeObject": true } },
+          { "id": "vocab_de_a2_reduziert", "lemma": "reduziert", "translation": "reduced / on sale", "pronunciation": "ray-doo-TSEERT", "partOfSpeech": "adjective", "languageFeatures": {} },
+          { "id": "vocab_de_a2_quittung", "lemma": "die Quittung", "translation": "receipt", "pronunciation": "KVI-toong", "partOfSpeech": "noun", "languageFeatures": { "gender": "feminine", "plural": "die Quittungen" } },
+          { "id": "vocab_de_a2_umtauschen", "lemma": "umtauschen", "translation": "to exchange", "pronunciation": "OOM-tow-shen", "partOfSpeech": "verb", "languageFeatures": { "separable": true } }
+        ],
+        "sentences": [
+          { "id": "sentence_de_a2_shopping_1", "text": "Kann ich die Jacke anprobieren?", "translation": "Can I try on the jacket?", "note": "The full infinitive anprobieren stays together after kann." },
+          { "id": "sentence_de_a2_shopping_2", "text": "Haben Sie sie auch in einer größeren Größe?", "translation": "Do you also have it in a larger size?", "note": "Sie replaces the feminine noun die Jacke." },
+          { "id": "sentence_de_a2_shopping_3", "text": "Der Pullover passt mir leider nicht.", "translation": "Unfortunately, the sweater does not fit me.", "note": "Passen takes the dative pronoun mir for the person." },
+          { "id": "sentence_de_a2_shopping_4", "text": "Ist dieser Mantel reduziert?", "translation": "Is this coat reduced?", "note": "Dieser matches the masculine noun Mantel." },
+          { "id": "sentence_de_a2_shopping_5", "text": "Ich möchte das Hemd mit der Quittung umtauschen.", "translation": "I would like to exchange the shirt with the receipt.", "note": "Möchte makes the request polite and the infinitive remains at the end." }
+        ],
+        "grammar": {
+          "id": "grammar_de_a2_comparative_sizes",
+          "title": "Asking for a different size",
+          "explanation": "Use the comparative adjective with an ending when you need a different version of an item. After in with a location, einer größeren Größe uses the dative case.",
+          "pattern": "in + einer größeren / kleineren Größe",
+          "examples": [
+            { "source": "Haben Sie das in einer kleineren Größe?", "translation": "Do you have that in a smaller size?" },
+            { "source": "Ich brauche einen größeren Pullover.", "translation": "I need a larger sweater." }
+          ],
+          "commonMistake": "Do not leave the comparative adjective without its case ending: say in einer größeren Größe."
+        },
+        "reading": {
+          "id": "reading_de_a2_shopping_return",
+          "title": "A different size",
+          "lines": [
+            { "speaker": "Kundin", "text": "Entschuldigung, kann ich diese Jacke anprobieren?", "translation": "Excuse me, can I try on this jacket?" },
+            { "speaker": "Verkäufer", "text": "Natürlich. Die Umkleidekabine ist dort rechts.", "translation": "Of course. The changing room is over there on the right." },
+            { "speaker": "Kundin", "text": "Sie ist zu eng. Haben Sie sie in einer größeren Größe?", "translation": "It is too tight. Do you have it in a larger size?" },
+            { "speaker": "Verkäufer", "text": "Ja, und diese Größe ist heute sogar reduziert.", "translation": "Yes, and this size is even reduced today." }
+          ]
+        },
+        "practice": {
+          "id": "practice_de_a2_shopping",
+          "passThreshold": 67,
+          "questions": [
+            { "id": "practice_de_a2_shopping_1", "type": "multiple_choice", "instruction": "Choose the matching meaning.", "prompt": "umtauschen", "choices": ["to exchange", "to pay", "to order"], "correctAnswer": "to exchange", "explanation": "Umtauschen means to exchange or return an item for another.", "skill": "vocabulary" },
+            { "id": "practice_de_a2_shopping_2", "type": "multiple_choice", "instruction": "Complete the size request.", "prompt": "Haben Sie das in einer ___ Größe?", "choices": ["größeren", "größer", "größere"], "correctAnswer": "größeren", "explanation": "After in einer, the comparative adjective takes the dative ending -en.", "skill": "grammar" },
+            { "id": "practice_de_a2_shopping_3", "type": "multiple_choice", "instruction": "Choose the natural request.", "prompt": "Ask to try on a jacket.", "choices": ["Kann ich die Jacke anprobieren?", "Probiert die Jacke mich an?", "Kann die Jacke passen mir?"], "correctAnswer": "Kann ich die Jacke anprobieren?", "explanation": "After the modal kann, the infinitive anprobieren goes to the end.", "skill": "reading" }
+          ]
+        },
+        "quiz": {
+          "id": "quiz_de_a2_shopping",
+          "title": "Shopping check",
+          "passThreshold": 80,
+          "questions": [
+            { "id": "quiz_de_a2_shopping_1", "type": "multiple_choice", "instruction": "Choose the German noun.", "prompt": "receipt", "choices": ["die Quittung", "die Größe", "das Angebot"], "correctAnswer": "die Quittung", "explanation": "Die Quittung means receipt.", "skill": "vocabulary" },
+            { "id": "quiz_de_a2_shopping_2", "type": "multiple_choice", "instruction": "Choose the correct form.", "prompt": "I need a larger sweater.", "choices": ["Ich brauche einen größeren Pullover.", "Ich brauche ein größer Pullover.", "Ich brauche einen größeres Pullover."], "correctAnswer": "Ich brauche einen größeren Pullover.", "explanation": "The masculine accusative phrase einen Pullover requires the adjective ending -en.", "skill": "grammar" },
+            { "id": "quiz_de_a2_shopping_3", "type": "multiple_choice", "instruction": "Complete the sentence.", "prompt": "Der Pullover passt ___ nicht.", "choices": ["mir", "mich", "ich"], "correctAnswer": "mir", "explanation": "Passen takes the dative pronoun mir.", "skill": "grammar" },
+            { "id": "quiz_de_a2_shopping_4", "type": "multiple_choice", "instruction": "Choose the polite exchange request.", "prompt": "You want to exchange the shirt.", "choices": ["Ich möchte das Hemd umtauschen.", "Das Hemd tauscht mich um.", "Ich möchte um das Hemd tauschen."], "correctAnswer": "Ich möchte das Hemd umtauschen.", "explanation": "The infinitive umtauschen remains together after möchte.", "skill": "reading" },
+            { "id": "quiz_de_a2_shopping_5", "type": "multiple_choice", "instruction": "Recall the dialogue.", "prompt": "Why does the customer need another jacket?", "choices": ["The first one is too tight", "The color is unavailable", "She lost the receipt"], "correctAnswer": "The first one is too tight", "explanation": "The customer says that the jacket is too tight.", "skill": "reading" }
+          ]
+        }
+      },
+      {
+        "id": "lesson_de_a2_finding_way",
+        "slug": "finding-the-way",
+        "title": "Finding the way",
+        "summary": "Understand directions, change transport, and confirm where a place is.",
+        "estimatedMinutes": 13,
+        "status": "published",
+        "revision": 1,
+        "heroTitle": "Move through the city without getting lost.",
+        "completionTitle": "You can ask for and follow directions.",
+        "objectives": [
+          "Ask where a destination is",
+          "Follow a sequence of directions",
+          "Explain where to change transport"
+        ],
+        "vocabulary": [
+          { "id": "vocab_de_a2_geradeaus", "lemma": "geradeaus", "translation": "straight ahead", "pronunciation": "guh-RAH-duh-ows", "partOfSpeech": "adverb", "languageFeatures": {} },
+          { "id": "vocab_de_a2_abbiegen", "lemma": "abbiegen", "translation": "to turn", "pronunciation": "AP-bee-gen", "partOfSpeech": "verb", "languageFeatures": { "separable": true } },
+          { "id": "vocab_de_a2_kreuzung", "lemma": "die Kreuzung", "translation": "intersection", "pronunciation": "KROY-tsoong", "partOfSpeech": "noun", "languageFeatures": { "gender": "feminine", "plural": "die Kreuzungen" } },
+          { "id": "vocab_de_a2_gegenueber", "lemma": "gegenüber", "translation": "opposite", "pronunciation": "GAY-gen-ue-ber", "partOfSpeech": "preposition", "languageFeatures": { "case": "dative" } },
+          { "id": "vocab_de_a2_umsteigen", "lemma": "umsteigen", "translation": "to change transport", "pronunciation": "OOM-shty-gen", "partOfSpeech": "verb", "languageFeatures": { "separable": true } },
+          { "id": "vocab_de_a2_haltestelle", "lemma": "die Haltestelle", "translation": "stop / station", "pronunciation": "HAL-tuh-shtel-luh", "partOfSpeech": "noun", "languageFeatures": { "gender": "feminine", "plural": "die Haltestellen" } }
+        ],
+        "sentences": [
+          { "id": "sentence_de_a2_directions_1", "text": "Gehen Sie bis zur nächsten Kreuzung geradeaus.", "translation": "Go straight ahead to the next intersection.", "note": "The formal imperative uses the verb followed by Sie." },
+          { "id": "sentence_de_a2_directions_2", "text": "Biegen Sie dann links ab.", "translation": "Then turn left.", "note": "In the imperative, the separable prefix ab appears at the end." },
+          { "id": "sentence_de_a2_directions_3", "text": "Die Apotheke liegt gegenüber dem Bahnhof.", "translation": "The pharmacy is opposite the train station.", "note": "Gegenüber takes the dative form dem Bahnhof." },
+          { "id": "sentence_de_a2_directions_4", "text": "Wo muss ich in die U-Bahn umsteigen?", "translation": "Where do I have to change to the underground?", "note": "After muss, the full infinitive umsteigen goes to the end." },
+          { "id": "sentence_de_a2_directions_5", "text": "Steigen Sie an der dritten Haltestelle aus.", "translation": "Get off at the third stop.", "note": "An der describes a location and uses the dative case." }
+        ],
+        "grammar": {
+          "id": "grammar_de_a2_formal_directions",
+          "title": "Giving formal directions",
+          "explanation": "Build the formal imperative with the verb first and Sie immediately after it. Separable prefixes still move to the end of the instruction.",
+          "pattern": "verb + Sie + ... + separable prefix",
+          "examples": [
+            { "source": "Gehen Sie geradeaus.", "translation": "Go straight ahead." },
+            { "source": "Steigen Sie am Marktplatz aus.", "translation": "Get off at the market square." }
+          ],
+          "commonMistake": "Keep Sie after the verb and capitalize it; do not use the statement order Sie gehen."
+        },
+        "reading": {
+          "id": "reading_de_a2_directions_city",
+          "title": "The quickest route",
+          "lines": [
+            { "speaker": "Besucher", "text": "Entschuldigung, wie komme ich zum Stadtmuseum?", "translation": "Excuse me, how do I get to the city museum?" },
+            { "speaker": "Passantin", "text": "Gehen Sie bis zur Kreuzung geradeaus und biegen Sie rechts ab.", "translation": "Go straight to the intersection and turn right." },
+            { "speaker": "Besucher", "text": "Ist es weit von hier?", "translation": "Is it far from here?" },
+            { "speaker": "Passantin", "text": "Nein. Das Museum liegt gegenüber der nächsten Bushaltestelle.", "translation": "No. The museum is opposite the next bus stop." }
+          ]
+        },
+        "practice": {
+          "id": "practice_de_a2_directions",
+          "passThreshold": 67,
+          "questions": [
+            { "id": "practice_de_a2_directions_1", "type": "multiple_choice", "instruction": "Choose the matching meaning.", "prompt": "umsteigen", "choices": ["to change transport", "to cross the street", "to arrive"], "correctAnswer": "to change transport", "explanation": "Umsteigen means to change from one train, bus, or line to another.", "skill": "vocabulary" },
+            { "id": "practice_de_a2_directions_2", "type": "multiple_choice", "instruction": "Choose the formal imperative.", "prompt": "Tell someone to turn left.", "choices": ["Biegen Sie links ab.", "Sie biegen links ab.", "Biegt Sie links ab."], "correctAnswer": "Biegen Sie links ab.", "explanation": "The formal imperative begins with the verb, followed by Sie.", "skill": "grammar" },
+            { "id": "practice_de_a2_directions_3", "type": "multiple_choice", "instruction": "Choose the correct location phrase.", "prompt": "opposite the train station", "choices": ["gegenüber dem Bahnhof", "gegenüber den Bahnhof", "gegenüber der Bahnhof"], "correctAnswer": "gegenüber dem Bahnhof", "explanation": "Gegenüber takes the dative; Bahnhof is masculine, so dem is correct.", "skill": "reading" }
+          ]
+        },
+        "quiz": {
+          "id": "quiz_de_a2_directions",
+          "title": "Directions check",
+          "passThreshold": 80,
+          "questions": [
+            { "id": "quiz_de_a2_directions_1", "type": "multiple_choice", "instruction": "Choose the German noun.", "prompt": "intersection", "choices": ["die Kreuzung", "die Haltestelle", "die Richtung"], "correctAnswer": "die Kreuzung", "explanation": "Die Kreuzung means intersection.", "skill": "vocabulary" },
+            { "id": "quiz_de_a2_directions_2", "type": "multiple_choice", "instruction": "Choose the correct instruction.", "prompt": "Go straight ahead.", "choices": ["Gehen Sie geradeaus.", "Sie geradeaus gehen.", "Geht Sie geradeaus."], "correctAnswer": "Gehen Sie geradeaus.", "explanation": "The formal imperative uses Gehen Sie.", "skill": "grammar" },
+            { "id": "quiz_de_a2_directions_3", "type": "multiple_choice", "instruction": "Complete the separable verb.", "prompt": "Steigen Sie an der Haltestelle ___.", "choices": ["aus", "ab", "um"], "correctAnswer": "aus", "explanation": "Aussteigen separates into steigen ... aus.", "skill": "grammar" },
+            { "id": "quiz_de_a2_directions_4", "type": "multiple_choice", "instruction": "Choose the natural question.", "prompt": "Ask how to reach the museum.", "choices": ["Wie komme ich zum Museum?", "Wo kommt das Museum mich?", "Wie gehe das Museum zu?"], "correctAnswer": "Wie komme ich zum Museum?", "explanation": "Wie komme ich zu ...? is the standard way to ask for a route.", "skill": "reading" },
+            { "id": "quiz_de_a2_directions_5", "type": "multiple_choice", "instruction": "Recall the directions.", "prompt": "Where is the museum?", "choices": ["Opposite the next bus stop", "Inside the train station", "Behind the visitor"], "correctAnswer": "Opposite the next bus stop", "explanation": "The passerby says the museum is opposite the next bus stop.", "skill": "reading" }
+          ]
+        }
+      },
+      {
+        "id": "lesson_de_a2_health_help",
+        "slug": "everyday-health-help",
+        "title": "Everyday health help",
+        "summary": "Describe common symptoms, arrange an appointment, and understand simple advice.",
+        "estimatedMinutes": 14,
+        "status": "published",
+        "revision": 1,
+        "heroTitle": "Explain how you feel and get the right help.",
+        "completionTitle": "You can handle a simple health conversation.",
+        "objectives": [
+          "Describe how long a symptom has lasted",
+          "Arrange a medical appointment",
+          "Understand advice with sollen"
+        ],
+        "vocabulary": [
+          { "id": "vocab_de_a2_termin", "lemma": "der Termin", "translation": "appointment", "pronunciation": "ter-MEEN", "partOfSpeech": "noun", "languageFeatures": { "gender": "masculine", "plural": "die Termine" } },
+          { "id": "vocab_de_a2_halsschmerzen", "lemma": "die Halsschmerzen", "translation": "sore throat", "pronunciation": "HALS-shmair-tsen", "partOfSpeech": "noun", "languageFeatures": { "pluralOnly": true } },
+          { "id": "vocab_de_a2_fieber", "lemma": "das Fieber", "translation": "fever", "pronunciation": "FEE-ber", "partOfSpeech": "noun", "languageFeatures": { "gender": "neuter" } },
+          { "id": "vocab_de_a2_rezept", "lemma": "das Rezept", "translation": "prescription", "pronunciation": "ray-TSEPT", "partOfSpeech": "noun", "languageFeatures": { "gender": "neuter", "plural": "die Rezepte" } },
+          { "id": "vocab_de_a2_medikament", "lemma": "das Medikament", "translation": "medicine", "pronunciation": "may-dee-kah-MENT", "partOfSpeech": "noun", "languageFeatures": { "gender": "neuter", "plural": "die Medikamente" } },
+          { "id": "vocab_de_a2_sich_ausruhen", "lemma": "sich ausruhen", "translation": "to rest", "pronunciation": "zikh OWS-roo-en", "partOfSpeech": "verb", "languageFeatures": { "reflexive": true, "separable": true } }
+        ],
+        "sentences": [
+          { "id": "sentence_de_a2_health_1", "text": "Ich habe seit gestern Halsschmerzen.", "translation": "I have had a sore throat since yesterday.", "note": "German normally uses the present tense with seit for an ongoing condition." },
+          { "id": "sentence_de_a2_health_2", "text": "Haben Sie heute noch einen Termin frei?", "translation": "Do you still have an appointment available today?", "note": "Einen Termin frei haben means to have an available appointment." },
+          { "id": "sentence_de_a2_health_3", "text": "Ich fühle mich müde und habe leichtes Fieber.", "translation": "I feel tired and have a slight fever.", "note": "Sich fühlen is reflexive and uses mich with ich." },
+          { "id": "sentence_de_a2_health_4", "text": "Sie sollten viel trinken und sich ausruhen.", "translation": "You should drink plenty and rest.", "note": "Sollten gives advice more gently than sollen." },
+          { "id": "sentence_de_a2_health_5", "text": "Brauche ich für dieses Medikament ein Rezept?", "translation": "Do I need a prescription for this medicine?", "note": "Für takes the accusative case: dieses Medikament." }
+        ],
+        "grammar": {
+          "id": "grammar_de_a2_seit_present",
+          "title": "Ongoing situations with seit",
+          "explanation": "Use seit with the present tense for something that began in the past and is still true now. Seit gestern names the starting point; seit zwei Tagen names the duration.",
+          "pattern": "present tense + seit + starting point or duration",
+          "examples": [
+            { "source": "Ich bin seit Montag krank.", "translation": "I have been ill since Monday." },
+            { "source": "Ich habe seit zwei Tagen Husten.", "translation": "I have had a cough for two days." }
+          ],
+          "commonMistake": "Do not copy the English past form; an ongoing condition normally stays in the German present tense."
+        },
+        "reading": {
+          "id": "reading_de_a2_health_call",
+          "title": "Calling the practice",
+          "lines": [
+            { "speaker": "Rezeption", "text": "Praxis Dr. Keller, guten Morgen.", "translation": "Dr Keller's practice, good morning." },
+            { "speaker": "Patient", "text": "Guten Morgen. Ich habe seit gestern Halsschmerzen und Fieber.", "translation": "Good morning. I have had a sore throat and fever since yesterday." },
+            { "speaker": "Rezeption", "text": "Wir haben heute um halb vier einen Termin frei.", "translation": "We have an appointment available today at half past three." },
+            { "speaker": "Patient", "text": "Das passt gut. Vielen Dank.", "translation": "That works well. Thank you very much." }
+          ]
+        },
+        "practice": {
+          "id": "practice_de_a2_health",
+          "passThreshold": 67,
+          "questions": [
+            { "id": "practice_de_a2_health_1", "type": "multiple_choice", "instruction": "Choose the matching meaning.", "prompt": "das Rezept", "choices": ["prescription", "appointment", "symptom"], "correctAnswer": "prescription", "explanation": "Das Rezept is the document needed for certain medicines.", "skill": "vocabulary" },
+            { "id": "practice_de_a2_health_2", "type": "multiple_choice", "instruction": "Choose the correct tense.", "prompt": "Ich ___ seit Montag krank.", "choices": ["bin", "war", "gewesen"], "correctAnswer": "bin", "explanation": "An ongoing condition with seit uses the present tense.", "skill": "grammar" },
+            { "id": "practice_de_a2_health_3", "type": "multiple_choice", "instruction": "Choose the advice.", "prompt": "Tell someone to rest.", "choices": ["Sie sollten sich ausruhen.", "Sie haben sich ausgeruht.", "Sie ruhen mich aus."], "correctAnswer": "Sie sollten sich ausruhen.", "explanation": "Sollten plus the infinitive gives polite advice.", "skill": "reading" }
+          ]
+        },
+        "quiz": {
+          "id": "quiz_de_a2_health",
+          "title": "Health check",
+          "passThreshold": 80,
+          "questions": [
+            { "id": "quiz_de_a2_health_1", "type": "multiple_choice", "instruction": "Choose the German word.", "prompt": "appointment", "choices": ["der Termin", "das Rezept", "das Fieber"], "correctAnswer": "der Termin", "explanation": "Der Termin means appointment.", "skill": "vocabulary" },
+            { "id": "quiz_de_a2_health_2", "type": "multiple_choice", "instruction": "Complete the duration.", "prompt": "Ich habe ___ zwei Tagen Husten.", "choices": ["seit", "vor", "für"], "correctAnswer": "seit", "explanation": "Seit introduces a duration that continues into the present.", "skill": "grammar" },
+            { "id": "quiz_de_a2_health_3", "type": "multiple_choice", "instruction": "Choose the correct reflexive form.", "prompt": "Ich ___ mich müde.", "choices": ["fühle", "fühlt", "fühlen"], "correctAnswer": "fühle", "explanation": "With ich, the conjugated form is fühle.", "skill": "grammar" },
+            { "id": "quiz_de_a2_health_4", "type": "multiple_choice", "instruction": "Choose the natural question.", "prompt": "Ask whether an appointment is available today.", "choices": ["Haben Sie heute einen Termin frei?", "Ist heute der Termin mich?", "Frei haben heute Sie Termin?"], "correctAnswer": "Haben Sie heute einen Termin frei?", "explanation": "Einen Termin frei haben is the natural expression for availability.", "skill": "reading" },
+            { "id": "quiz_de_a2_health_5", "type": "multiple_choice", "instruction": "Recall the phone call.", "prompt": "When is the available appointment?", "choices": ["At half past three today", "At nine tomorrow", "At noon on Monday"], "correctAnswer": "At half past three today", "explanation": "The receptionist offers an appointment today at half past three.", "skill": "reading" }
+          ]
+        }
+      }
+    ]
+  }]
+}

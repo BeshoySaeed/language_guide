@@ -1,0 +1,458 @@
+{
+  "schemaVersion": 1,
+  "id": "book_de_b1_independent",
+  "languageCode": "de",
+  "levelCode": "B1",
+  "slug": "independent-life",
+  "title": "Independent life",
+  "description": "German for expressing ideas, pursuing goals, and discussing the world around you.",
+  "status": "reviewed",
+  "revision": 1,
+  "provenance": {
+    "author": "Language Guide editorial",
+    "reviewedBy": "Initial German scope curriculum review",
+    "reviewedAt": "2026-09-22"
+  },
+  "chapters": [{
+    "id": "chapter_de_b1_independent",
+    "slug": "independent-life",
+    "title": "Independent life",
+    "description": "Explain opinions, discuss professional goals, and understand everyday news.",
+    "lessons": [
+      {
+        "id": "lesson_de_b1_opinions",
+        "slug": "sharing-opinions",
+        "title": "Sharing opinions",
+        "summary": "State a viewpoint, acknowledge another perspective, and disagree respectfully.",
+        "estimatedMinutes": 15,
+        "status": "published",
+        "revision": 1,
+        "heroTitle": "Make your point without closing the conversation.",
+        "completionTitle": "You can express and balance an opinion.",
+        "objectives": [
+          "Introduce an opinion clearly",
+          "Contrast ideas with obwohl",
+          "Agree or disagree in a respectful way"
+        ],
+        "vocabulary": [
+          { "id": "vocab_de_b1_meinung", "lemma": "die Meinung", "translation": "opinion", "pronunciation": "MY-noong", "partOfSpeech": "noun", "languageFeatures": { "gender": "feminine", "plural": "die Meinungen" } },
+          { "id": "vocab_de_b1_zustimmen", "lemma": "zustimmen", "translation": "to agree", "pronunciation": "TSOO-shtim-men", "partOfSpeech": "verb", "languageFeatures": { "separable": true, "case": "dative" } },
+          { "id": "vocab_de_b1_widersprechen", "lemma": "widersprechen", "translation": "to disagree / contradict", "pronunciation": "VEE-der-shpre-khen", "partOfSpeech": "verb", "languageFeatures": { "case": "dative" } },
+          { "id": "vocab_de_b1_einerseits", "lemma": "einerseits", "translation": "on the one hand", "pronunciation": "EYE-ner-zyts", "partOfSpeech": "adverb", "languageFeatures": {} },
+          { "id": "vocab_de_b1_andererseits", "lemma": "andererseits", "translation": "on the other hand", "pronunciation": "AN-der-er-zyts", "partOfSpeech": "adverb", "languageFeatures": {} },
+          { "id": "vocab_de_b1_obwohl", "lemma": "obwohl", "translation": "although", "pronunciation": "op-VOHL", "partOfSpeech": "conjunction", "languageFeatures": { "subordinate": true } }
+        ],
+        "sentences": [
+          { "id": "sentence_de_b1_opinions_1", "text": "Meiner Meinung nach ist die Idee sinnvoll.", "translation": "In my opinion, the idea makes sense.", "note": "Meiner Meinung nach is a neutral way to introduce a personal view." },
+          { "id": "sentence_de_b1_opinions_2", "text": "Da stimme ich dir nur teilweise zu.", "translation": "I only partly agree with you on that.", "note": "Zustimmen takes a dative object, such as dir." },
+          { "id": "sentence_de_b1_opinions_3", "text": "Obwohl es teuer ist, spart es langfristig Energie.", "translation": "Although it is expensive, it saves energy in the long term.", "note": "The verb goes to the end of the obwohl clause." },
+          { "id": "sentence_de_b1_opinions_4", "text": "Einerseits ist es praktisch, andererseits fehlt der persönliche Kontakt.", "translation": "On the one hand it is practical; on the other hand personal contact is missing.", "note": "The paired connectors organize two contrasting points." },
+          { "id": "sentence_de_b1_opinions_5", "text": "Ich verstehe deinen Punkt, sehe das aber anders.", "translation": "I understand your point, but I see it differently.", "note": "This phrase recognizes the other view before disagreeing." }
+        ],
+        "grammar": {
+          "id": "grammar_de_b1_obwohl",
+          "title": "Balancing ideas with obwohl",
+          "explanation": "Obwohl introduces a fact that contrasts with the main statement. The conjugated verb goes to the end of the obwohl clause, and the clauses are separated by a comma.",
+          "pattern": "Obwohl + subject + ... + verb, main clause.",
+          "examples": [
+            { "source": "Obwohl der Weg lang ist, fahre ich mit dem Rad.", "translation": "Although the route is long, I cycle." },
+            { "source": "Ich gehe hin, obwohl ich wenig Zeit habe.", "translation": "I am going, although I have little time." }
+          ],
+          "commonMistake": "Do not keep normal main-clause order after obwohl; the conjugated verb belongs at the end."
+        },
+        "reading": {
+          "id": "reading_de_b1_opinions_discussion",
+          "title": "Working from home",
+          "lines": [
+            { "speaker": "Samira", "text": "Meiner Meinung nach sollten wir öfter von zu Hause arbeiten.", "translation": "In my opinion, we should work from home more often." },
+            { "speaker": "David", "text": "Einerseits ist das praktisch, andererseits fehlt mir das Team.", "translation": "On the one hand that is practical; on the other hand I miss the team." },
+            { "speaker": "Samira", "text": "Das verstehe ich, obwohl wir uns online gut austauschen können.", "translation": "I understand that, although we can communicate well online." },
+            { "speaker": "David", "text": "Da stimme ich dir teilweise zu. Zwei Tage pro Woche wären gut.", "translation": "I partly agree with you. Two days per week would be good." }
+          ]
+        },
+        "practice": {
+          "id": "practice_de_b1_opinions",
+          "passThreshold": 67,
+          "questions": [
+            { "id": "practice_de_b1_opinions_1", "type": "multiple_choice", "instruction": "Choose the matching meaning.", "prompt": "zustimmen", "choices": ["to agree", "to explain", "to doubt"], "correctAnswer": "to agree", "explanation": "Zustimmen means to agree with someone.", "skill": "vocabulary" },
+            { "id": "practice_de_b1_opinions_2", "type": "multiple_choice", "instruction": "Complete the contrast.", "prompt": "___ es teuer ist, ist es sinnvoll.", "choices": ["Obwohl", "Deshalb", "Trotzdem"], "correctAnswer": "Obwohl", "explanation": "Obwohl introduces a contrasting subordinate clause.", "skill": "grammar" },
+            { "id": "practice_de_b1_opinions_3", "type": "multiple_choice", "instruction": "Choose the respectful disagreement.", "prompt": "You understand the point but disagree.", "choices": ["Ich verstehe deinen Punkt, sehe das aber anders.", "Deine Meinung ist falsch.", "Ich höre dir nicht zu."], "correctAnswer": "Ich verstehe deinen Punkt, sehe das aber anders.", "explanation": "The sentence acknowledges the other person before disagreeing.", "skill": "reading" }
+          ]
+        },
+        "quiz": {
+          "id": "quiz_de_b1_opinions",
+          "title": "Opinions check",
+          "passThreshold": 80,
+          "questions": [
+            { "id": "quiz_de_b1_opinions_1", "type": "multiple_choice", "instruction": "Choose the German noun.", "prompt": "opinion", "choices": ["die Meinung", "die Erfahrung", "die Nachricht"], "correctAnswer": "die Meinung", "explanation": "Die Meinung means opinion.", "skill": "vocabulary" },
+            { "id": "quiz_de_b1_opinions_2", "type": "multiple_choice", "instruction": "Choose the correct word order.", "prompt": "although it is expensive", "choices": ["obwohl es teuer ist", "obwohl ist es teuer", "obwohl es ist teuer"], "correctAnswer": "obwohl es teuer ist", "explanation": "The verb goes to the end of the subordinate clause.", "skill": "grammar" },
+            { "id": "quiz_de_b1_opinions_3", "type": "multiple_choice", "instruction": "Complete the paired expression.", "prompt": "Einerseits ist es praktisch, ___ fehlt der Kontakt.", "choices": ["andererseits", "obwohl", "deswegen"], "correctAnswer": "andererseits", "explanation": "Einerseits and andererseits present two sides.", "skill": "grammar" },
+            { "id": "quiz_de_b1_opinions_4", "type": "multiple_choice", "instruction": "Choose the natural expression.", "prompt": "I partly agree with you.", "choices": ["Ich stimme dir teilweise zu.", "Ich stimme dich teilweise.", "Ich widerspreche deine Meinung zu."], "correctAnswer": "Ich stimme dir teilweise zu.", "explanation": "Zustimmen takes the dative pronoun dir and separates in a main clause.", "skill": "reading" },
+            { "id": "quiz_de_b1_opinions_5", "type": "multiple_choice", "instruction": "Recall the discussion.", "prompt": "What compromise does David suggest?", "choices": ["Two remote days per week", "Working remotely every day", "No remote work"], "correctAnswer": "Two remote days per week", "explanation": "David says that two days per week would be good.", "skill": "reading" }
+          ]
+        }
+      },
+      {
+        "id": "lesson_de_b1_work",
+        "slug": "work-and-goals",
+        "title": "Work and goals",
+        "summary": "Describe professional experience, strengths, and plans for development.",
+        "estimatedMinutes": 16,
+        "status": "published",
+        "revision": 1,
+        "heroTitle": "Tell the story behind your next step.",
+        "completionTitle": "You can discuss your professional goals.",
+        "objectives": [
+          "Describe experience and responsibilities",
+          "Connect details with relative clauses",
+          "Explain a professional goal"
+        ],
+        "vocabulary": [
+          { "id": "vocab_de_b1_erfahrung", "lemma": "die Erfahrung", "translation": "experience", "pronunciation": "er-FAH-roong", "partOfSpeech": "noun", "languageFeatures": { "gender": "feminine", "plural": "die Erfahrungen" } },
+          { "id": "vocab_de_b1_faehigkeit", "lemma": "die Fähigkeit", "translation": "skill / ability", "pronunciation": "FAY-ikh-kite", "partOfSpeech": "noun", "languageFeatures": { "gender": "feminine", "plural": "die Fähigkeiten" } },
+          { "id": "vocab_de_b1_verantwortung", "lemma": "die Verantwortung", "translation": "responsibility", "pronunciation": "fer-ANT-vor-toong", "partOfSpeech": "noun", "languageFeatures": { "gender": "feminine", "plural": "die Verantwortungen" } },
+          { "id": "vocab_de_b1_sich_bewerben", "lemma": "sich bewerben", "translation": "to apply", "pronunciation": "zikh buh-VER-ben", "partOfSpeech": "verb", "languageFeatures": { "reflexive": true } },
+          { "id": "vocab_de_b1_sich_entwickeln", "lemma": "sich entwickeln", "translation": "to develop", "pronunciation": "zikh ent-VIK-keln", "partOfSpeech": "verb", "languageFeatures": { "reflexive": true } },
+          { "id": "vocab_de_b1_zuverlaessig", "lemma": "zuverlässig", "translation": "reliable", "pronunciation": "TSOO-fer-les-ikh", "partOfSpeech": "adjective", "languageFeatures": {} }
+        ],
+        "sentences": [
+          { "id": "sentence_de_b1_work_1", "text": "Ich habe drei Jahre Erfahrung im Kundenservice.", "translation": "I have three years of experience in customer service.", "note": "Im combines in and dem and introduces the professional area." },
+          { "id": "sentence_de_b1_work_2", "text": "Ich suche eine Stelle, die mehr Verantwortung bietet.", "translation": "I am looking for a position that offers more responsibility.", "note": "Die refers back to the feminine noun Stelle." },
+          { "id": "sentence_de_b1_work_3", "text": "Zu meinen Stärken gehört, dass ich zuverlässig bin.", "translation": "One of my strengths is that I am reliable.", "note": "This structure introduces a strength with a complete dass clause." },
+          { "id": "sentence_de_b1_work_4", "text": "Mein Ziel ist es, mich fachlich weiterzuentwickeln.", "translation": "My goal is to develop professionally.", "note": "The infinitive group with zu explains the goal." },
+          { "id": "sentence_de_b1_work_5", "text": "Deshalb bewerbe ich mich um diese Stelle.", "translation": "That is why I am applying for this position.", "note": "Sich bewerben um takes the accusative case." }
+        ],
+        "grammar": {
+          "id": "grammar_de_b1_relative",
+          "title": "Adding detail with relative clauses",
+          "explanation": "A relative clause gives more information about a noun. The relative pronoun matches the noun's gender and case, and the conjugated verb goes to the end.",
+          "pattern": "noun, relative pronoun + ... + verb",
+          "examples": [
+            { "source": "Das ist die Stelle, die mich interessiert.", "translation": "That is the position that interests me." },
+            { "source": "Ich kenne den Kollegen, der das Team leitet.", "translation": "I know the colleague who leads the team." }
+          ],
+          "commonMistake": "Choose the relative pronoun from its role inside the relative clause, not only from the noun before it."
+        },
+        "reading": {
+          "id": "reading_de_b1_work_interview",
+          "title": "A short interview",
+          "lines": [
+            { "speaker": "Recruiter", "text": "Welche Erfahrung bringen Sie mit?", "translation": "What experience do you bring?" },
+            { "speaker": "Mina", "text": "Ich habe drei Jahre Erfahrung im Kundenservice.", "translation": "I have three years of experience in customer service." },
+            { "speaker": "Recruiter", "text": "Was ist Ihnen bei einer neuen Stelle wichtig?", "translation": "What is important to you in a new position?" },
+            { "speaker": "Mina", "text": "Ich suche eine Stelle, die Verantwortung und Entwicklungsmöglichkeiten bietet.", "translation": "I am looking for a position that offers responsibility and opportunities for development." }
+          ]
+        },
+        "practice": {
+          "id": "practice_de_b1_work",
+          "passThreshold": 67,
+          "questions": [
+            { "id": "practice_de_b1_work_1", "type": "multiple_choice", "instruction": "Choose the matching meaning.", "prompt": "zuverlässig", "choices": ["reliable", "creative", "temporary"], "correctAnswer": "reliable", "explanation": "Zuverlässig describes someone who can be depended on.", "skill": "vocabulary" },
+            { "id": "practice_de_b1_work_2", "type": "multiple_choice", "instruction": "Choose the relative pronoun.", "prompt": "Ich suche eine Stelle, ___ mehr Verantwortung bietet.", "choices": ["die", "der", "das"], "correctAnswer": "die", "explanation": "Stelle is feminine and the pronoun is the subject of bietet.", "skill": "grammar" },
+            { "id": "practice_de_b1_work_3", "type": "multiple_choice", "instruction": "Choose the natural expression.", "prompt": "State a professional development goal.", "choices": ["Mein Ziel ist es, mich fachlich weiterzuentwickeln.", "Mein Ziel entwickelt eine Stelle.", "Ich bin Ziel von Erfahrung."], "correctAnswer": "Mein Ziel ist es, mich fachlich weiterzuentwickeln.", "explanation": "The infinitive phrase explains the speaker's goal.", "skill": "reading" }
+          ]
+        },
+        "quiz": {
+          "id": "quiz_de_b1_work",
+          "title": "Work check",
+          "passThreshold": 80,
+          "questions": [
+            { "id": "quiz_de_b1_work_1", "type": "multiple_choice", "instruction": "Choose the German word.", "prompt": "responsibility", "choices": ["die Verantwortung", "die Erfahrung", "die Fähigkeit"], "correctAnswer": "die Verantwortung", "explanation": "Die Verantwortung means responsibility.", "skill": "vocabulary" },
+            { "id": "quiz_de_b1_work_2", "type": "multiple_choice", "instruction": "Choose the correct relative clause.", "prompt": "the position that interests me", "choices": ["die Stelle, die mich interessiert", "die Stelle, der mich interessiert", "die Stelle, die interessiert mich"], "correctAnswer": "die Stelle, die mich interessiert", "explanation": "Die is the feminine subject and the verb goes to the end.", "skill": "grammar" },
+            { "id": "quiz_de_b1_work_3", "type": "multiple_choice", "instruction": "Complete the expression.", "prompt": "Ich bewerbe mich ___ diese Stelle.", "choices": ["um", "für", "zu"], "correctAnswer": "um", "explanation": "Sich bewerben is used with um and the accusative.", "skill": "grammar" },
+            { "id": "quiz_de_b1_work_4", "type": "multiple_choice", "instruction": "Choose the matching sentence.", "prompt": "I have three years of experience.", "choices": ["Ich habe drei Jahre Erfahrung.", "Ich bin drei Jahre verantwortlich.", "Ich entwickle drei Jahre."], "correctAnswer": "Ich habe drei Jahre Erfahrung.", "explanation": "Erfahrung is the noun used for professional experience.", "skill": "reading" },
+            { "id": "quiz_de_b1_work_5", "type": "multiple_choice", "instruction": "Recall the interview.", "prompt": "Which field did Mina work in?", "choices": ["Customer service", "Software development", "Healthcare"], "correctAnswer": "Customer service", "explanation": "Mina mentions three years in customer service.", "skill": "reading" }
+          ]
+        }
+      },
+      {
+        "id": "lesson_de_b1_news",
+        "slug": "news-that-matters",
+        "title": "News that matters",
+        "summary": "Understand a short report, identify its source, and discuss its impact.",
+        "estimatedMinutes": 16,
+        "status": "published",
+        "revision": 1,
+        "heroTitle": "Move from the headline to the meaning.",
+        "completionTitle": "You can discuss a short news report.",
+        "objectives": [
+          "Identify the source and main claim",
+          "Recognize the present passive",
+          "Describe consequences with deshalb"
+        ],
+        "vocabulary": [
+          { "id": "vocab_de_b1_nachricht", "lemma": "die Nachricht", "translation": "news item / message", "pronunciation": "NAKH-rikht", "partOfSpeech": "noun", "languageFeatures": { "gender": "feminine", "plural": "die Nachrichten" } },
+          { "id": "vocab_de_b1_bericht", "lemma": "der Bericht", "translation": "report", "pronunciation": "buh-RIKHT", "partOfSpeech": "noun", "languageFeatures": { "gender": "masculine", "plural": "die Berichte" } },
+          { "id": "vocab_de_b1_quelle", "lemma": "die Quelle", "translation": "source", "pronunciation": "KVEL-luh", "partOfSpeech": "noun", "languageFeatures": { "gender": "feminine", "plural": "die Quellen" } },
+          { "id": "vocab_de_b1_veroeffentlichen", "lemma": "veröffentlichen", "translation": "to publish", "pronunciation": "fer-UR-fent-li-khen", "partOfSpeech": "verb", "languageFeatures": { "regular": true } },
+          { "id": "vocab_de_b1_auswirkung", "lemma": "die Auswirkung", "translation": "effect / impact", "pronunciation": "OWS-veer-koong", "partOfSpeech": "noun", "languageFeatures": { "gender": "feminine", "plural": "die Auswirkungen" } },
+          { "id": "vocab_de_b1_deshalb", "lemma": "deshalb", "translation": "therefore / that is why", "pronunciation": "DES-halp", "partOfSpeech": "adverb", "languageFeatures": {} }
+        ],
+        "sentences": [
+          { "id": "sentence_de_b1_news_1", "text": "Der Bericht wurde gestern veröffentlicht.", "translation": "The report was published yesterday.", "note": "The past passive uses wurde plus the past participle." },
+          { "id": "sentence_de_b1_news_2", "text": "Laut der Quelle nutzen mehr Menschen den Zug.", "translation": "According to the source, more people use the train.", "note": "Laut introduces the source of information." },
+          { "id": "sentence_de_b1_news_3", "text": "Neue Fahrradwege werden gebaut.", "translation": "New cycle paths are being built.", "note": "The present passive uses werden plus the past participle." },
+          { "id": "sentence_de_b1_news_4", "text": "Die Preise steigen, deshalb ändern viele ihre Gewohnheiten.", "translation": "Prices are rising, so many people are changing their habits.", "note": "Deshalb occupies the first position and the conjugated verb follows it." },
+          { "id": "sentence_de_b1_news_5", "text": "Welche Auswirkungen hat diese Entwicklung?", "translation": "What impact does this development have?", "note": "This open question invites discussion of consequences." }
+        ],
+        "grammar": {
+          "id": "grammar_de_b1_passive",
+          "title": "Focusing on events with the passive",
+          "explanation": "Use werden plus the past participle when the action or result matters more than the person doing it. The participle appears at the end of the clause.",
+          "pattern": "subject + werden + ... + past participle",
+          "examples": [
+            { "source": "Neue Wohnungen werden gebaut.", "translation": "New homes are being built." },
+            { "source": "Der Bericht wird heute veröffentlicht.", "translation": "The report is being published today." }
+          ],
+          "commonMistake": "Do not confuse the passive with the future: the past participle at the end signals the passive action."
+        },
+        "reading": {
+          "id": "reading_de_b1_news_report",
+          "title": "A city changes direction",
+          "lines": [
+            { "speaker": "Moderatorin", "text": "Heute wurde ein neuer Verkehrsbericht veröffentlicht.", "translation": "A new transport report was published today." },
+            { "speaker": "Reporter", "text": "Laut dem Bericht nutzen mehr Menschen Busse und Bahnen.", "translation": "According to the report, more people use buses and trains." },
+            { "speaker": "Moderatorin", "text": "Wie reagiert die Stadt?", "translation": "How is the city responding?" },
+            { "speaker": "Reporter", "text": "Neue Fahrradwege werden gebaut. Deshalb sollen weniger Autos ins Zentrum fahren.", "translation": "New cycle paths are being built. Therefore, fewer cars should drive into the center." }
+          ]
+        },
+        "practice": {
+          "id": "practice_de_b1_news",
+          "passThreshold": 67,
+          "questions": [
+            { "id": "practice_de_b1_news_1", "type": "multiple_choice", "instruction": "Choose the matching meaning.", "prompt": "die Quelle", "choices": ["source", "headline", "effect"], "correctAnswer": "source", "explanation": "Die Quelle identifies where information comes from.", "skill": "vocabulary" },
+            { "id": "practice_de_b1_news_2", "type": "multiple_choice", "instruction": "Complete the passive.", "prompt": "Neue Fahrradwege ___ gebaut.", "choices": ["werden", "haben", "sind"], "correctAnswer": "werden", "explanation": "The present passive uses werden plus a past participle.", "skill": "grammar" },
+            { "id": "practice_de_b1_news_3", "type": "multiple_choice", "instruction": "Choose the consequence connector.", "prompt": "Die Preise steigen, ___ ändern viele ihre Gewohnheiten.", "choices": ["deshalb", "obwohl", "während"], "correctAnswer": "deshalb", "explanation": "Deshalb introduces a consequence.", "skill": "reading" }
+          ]
+        },
+        "quiz": {
+          "id": "quiz_de_b1_news",
+          "title": "News check",
+          "passThreshold": 80,
+          "questions": [
+            { "id": "quiz_de_b1_news_1", "type": "multiple_choice", "instruction": "Choose the German noun.", "prompt": "report", "choices": ["der Bericht", "die Quelle", "die Auswirkung"], "correctAnswer": "der Bericht", "explanation": "Der Bericht means report.", "skill": "vocabulary" },
+            { "id": "quiz_de_b1_news_2", "type": "multiple_choice", "instruction": "Choose the present passive.", "prompt": "New homes are being built.", "choices": ["Neue Wohnungen werden gebaut.", "Neue Wohnungen haben gebaut.", "Neue Wohnungen bauen werden."], "correctAnswer": "Neue Wohnungen werden gebaut.", "explanation": "Werden plus gebaut forms the present passive.", "skill": "grammar" },
+            { "id": "quiz_de_b1_news_3", "type": "multiple_choice", "instruction": "Choose the correct word order.", "prompt": "therefore many people change their habits", "choices": ["deshalb ändern viele ihre Gewohnheiten", "deshalb viele ändern ihre Gewohnheiten", "deshalb ihre Gewohnheiten viele ändern"], "correctAnswer": "deshalb ändern viele ihre Gewohnheiten", "explanation": "After deshalb, the conjugated verb comes before the subject.", "skill": "grammar" },
+            { "id": "quiz_de_b1_news_4", "type": "multiple_choice", "instruction": "Choose the source phrase.", "prompt": "According to the report", "choices": ["Laut dem Bericht", "Wegen der Auswirkung", "Trotz der Nachricht"], "correctAnswer": "Laut dem Bericht", "explanation": "Laut introduces a cited source.", "skill": "reading" },
+            { "id": "quiz_de_b1_news_5", "type": "multiple_choice", "instruction": "Recall the report.", "prompt": "What is the city building?", "choices": ["New cycle paths", "A new airport", "More car parks"], "correctAnswer": "New cycle paths", "explanation": "The report says that new cycle paths are being built.", "skill": "reading" }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "chapter_de_b1_participation",
+    "slug": "learning-and-participation",
+    "title": "Learning and participation",
+    "description": "Develop new skills, handle disrupted plans, and take an active role in the community.",
+    "lessons": [
+      {
+        "id": "lesson_de_b1_learning_goals",
+        "slug": "learning-and-development",
+        "title": "Learning and development",
+        "summary": "Discuss further education, requirements, and concrete learning goals.",
+        "estimatedMinutes": 16,
+        "status": "published",
+        "revision": 1,
+        "heroTitle": "Turn a learning goal into a practical plan.",
+        "completionTitle": "You can discuss education and development.",
+        "objectives": ["Describe a course and its requirements", "Explain a goal with um ... zu", "Compare learning options and outcomes"],
+        "vocabulary": [
+          { "id": "vocab_de_b1_weiterbildung", "lemma": "die Weiterbildung", "translation": "further training", "pronunciation": "VY-ter-bil-doong", "partOfSpeech": "noun", "languageFeatures": { "gender": "feminine", "plural": "die Weiterbildungen" } },
+          { "id": "vocab_de_b1_voraussetzung", "lemma": "die Voraussetzung", "translation": "requirement / prerequisite", "pronunciation": "for-OWS-zet-soong", "partOfSpeech": "noun", "languageFeatures": { "gender": "feminine", "plural": "die Voraussetzungen" } },
+          { "id": "vocab_de_b1_teilnehmen", "lemma": "teilnehmen", "translation": "to participate", "pronunciation": "TYLE-nay-men", "partOfSpeech": "verb", "languageFeatures": { "separable": true, "preposition": "an + dative" } },
+          { "id": "vocab_de_b1_verbessern", "lemma": "verbessern", "translation": "to improve", "pronunciation": "fer-BES-sern", "partOfSpeech": "verb", "languageFeatures": {} },
+          { "id": "vocab_de_b1_abschluss", "lemma": "der Abschluss", "translation": "qualification / completion", "pronunciation": "AP-shloos", "partOfSpeech": "noun", "languageFeatures": { "gender": "masculine", "plural": "die Abschlüsse" } },
+          { "id": "vocab_de_b1_berufsbegleitend", "lemma": "berufsbegleitend", "translation": "part-time alongside work", "pronunciation": "buh-ROOFS-buh-gly-tent", "partOfSpeech": "adjective", "languageFeatures": {} }
+        ],
+        "sentences": [
+          { "id": "sentence_de_b1_learning_1", "text": "Ich nehme an einer berufsbegleitenden Weiterbildung teil.", "translation": "I am taking part in further training alongside work.", "note": "Teilnehmen uses an plus the dative case and separates in a main clause." },
+          { "id": "sentence_de_b1_learning_2", "text": "Welche Voraussetzungen muss ich erfüllen?", "translation": "Which requirements do I have to meet?", "note": "Voraussetzungen erfüllen is the standard combination for meeting requirements." },
+          { "id": "sentence_de_b1_learning_3", "text": "Ich besuche den Kurs, um meine Kenntnisse zu verbessern.", "translation": "I attend the course in order to improve my knowledge.", "note": "Um ... zu expresses a purpose when both clauses have the same subject." },
+          { "id": "sentence_de_b1_learning_4", "text": "Der Abschluss wird von vielen Unternehmen anerkannt.", "translation": "The qualification is recognized by many companies.", "note": "The passive focuses on the recognized qualification rather than the companies." },
+          { "id": "sentence_de_b1_learning_5", "text": "Obwohl der Kurs anspruchsvoll ist, lohnt er sich.", "translation": "Although the course is demanding, it is worthwhile.", "note": "Obwohl introduces a contrast and sends the verb to the end." }
+        ],
+        "grammar": {
+          "id": "grammar_de_b1_purpose_um_zu",
+          "title": "Expressing purpose with um ... zu",
+          "explanation": "Use um ... zu plus an infinitive when the subject of the main clause also performs the purpose action. The zu infinitive appears at the end.",
+          "pattern": "main clause + um + ... + zu + infinitive",
+          "examples": [
+            { "source": "Ich lerne jeden Abend, um die Prüfung zu bestehen.", "translation": "I study every evening in order to pass the exam." },
+            { "source": "Sie macht einen Kurs, um sich beruflich weiterzuentwickeln.", "translation": "She is taking a course to develop professionally." }
+          ],
+          "commonMistake": "Use damit instead when the purpose clause has a different subject."
+        },
+        "reading": {
+          "id": "reading_de_b1_learning_advice",
+          "title": "Choosing the right course",
+          "lines": [
+            { "speaker": "Beraterin", "text": "Was möchten Sie mit der Weiterbildung erreichen?", "translation": "What would you like to achieve with the further training?" },
+            { "speaker": "Karim", "text": "Ich möchte meine digitalen Kenntnisse verbessern, um mehr Verantwortung zu übernehmen.", "translation": "I would like to improve my digital skills in order to take on more responsibility." },
+            { "speaker": "Beraterin", "text": "Dann passt dieser berufsbegleitende Kurs gut. Berufserfahrung ist eine Voraussetzung.", "translation": "Then this part-time course fits well. Professional experience is a requirement." },
+            { "speaker": "Karim", "text": "Gut. Wird der Abschluss von Unternehmen anerkannt?", "translation": "Good. Is the qualification recognized by companies?" }
+          ]
+        },
+        "practice": {
+          "id": "practice_de_b1_learning",
+          "passThreshold": 67,
+          "questions": [
+            { "id": "practice_de_b1_learning_1", "type": "multiple_choice", "instruction": "Choose the matching meaning.", "prompt": "die Voraussetzung", "choices": ["requirement", "qualification", "experience"], "correctAnswer": "requirement", "explanation": "Eine Voraussetzung is something required before participation is possible.", "skill": "vocabulary" },
+            { "id": "practice_de_b1_learning_2", "type": "multiple_choice", "instruction": "Complete the purpose clause.", "prompt": "Ich lerne, um die Prüfung ___ bestehen.", "choices": ["zu", "für", "damit"], "correctAnswer": "zu", "explanation": "Um ... zu plus an infinitive expresses purpose with the same subject.", "skill": "grammar" },
+            { "id": "practice_de_b1_learning_3", "type": "multiple_choice", "instruction": "Choose the natural expression.", "prompt": "Ask about entry requirements.", "choices": ["Welche Voraussetzungen muss ich erfüllen?", "Welche Abschlüsse nehmen mich teil?", "Was verbessert die Voraussetzung mich?"], "correctAnswer": "Welche Voraussetzungen muss ich erfüllen?", "explanation": "Voraussetzungen erfüllen means to meet requirements.", "skill": "reading" }
+          ]
+        },
+        "quiz": {
+          "id": "quiz_de_b1_learning",
+          "title": "Learning check",
+          "passThreshold": 80,
+          "questions": [
+            { "id": "quiz_de_b1_learning_1", "type": "multiple_choice", "instruction": "Choose the German noun.", "prompt": "further training", "choices": ["die Weiterbildung", "die Voraussetzung", "der Abschluss"], "correctAnswer": "die Weiterbildung", "explanation": "Die Weiterbildung means further or continuing training.", "skill": "vocabulary" },
+            { "id": "quiz_de_b1_learning_2", "type": "multiple_choice", "instruction": "Choose the purpose clause.", "prompt": "to improve my knowledge", "choices": ["um meine Kenntnisse zu verbessern", "um ich verbessere meine Kenntnisse", "damit meine Kenntnisse zu verbessern"], "correctAnswer": "um meine Kenntnisse zu verbessern", "explanation": "Um ... zu is correct because the subject stays the same.", "skill": "grammar" },
+            { "id": "quiz_de_b1_learning_3", "type": "multiple_choice", "instruction": "Complete the verb.", "prompt": "Ich nehme an dem Kurs ___.", "choices": ["teil", "an", "mit"], "correctAnswer": "teil", "explanation": "Teilnehmen separates into nehme ... teil.", "skill": "grammar" },
+            { "id": "quiz_de_b1_learning_4", "type": "multiple_choice", "instruction": "Choose the correct passive sentence.", "prompt": "The qualification is recognized.", "choices": ["Der Abschluss wird anerkannt.", "Der Abschluss hat anerkannt.", "Der Abschluss erkennt wird."], "correctAnswer": "Der Abschluss wird anerkannt.", "explanation": "Werden plus the participle anerkannt forms the passive.", "skill": "reading" },
+            { "id": "quiz_de_b1_learning_5", "type": "multiple_choice", "instruction": "Recall the consultation.", "prompt": "What experience does the course require?", "choices": ["Professional experience", "University teaching", "International travel"], "correctAnswer": "Professional experience", "explanation": "The adviser says that professional experience is a prerequisite.", "skill": "reading" }
+          ]
+        }
+      },
+      {
+        "id": "lesson_de_b1_travel_changes",
+        "slug": "when-travel-plans-change",
+        "title": "When travel plans change",
+        "summary": "Understand disruption announcements, ask about alternatives, and make a complaint.",
+        "estimatedMinutes": 16,
+        "status": "published",
+        "revision": 1,
+        "heroTitle": "Stay clear and calm when the journey changes.",
+        "completionTitle": "You can handle a disrupted journey.",
+        "objectives": ["Understand delay and cancellation information", "Ask indirect questions politely", "Request an alternative or refund"],
+        "vocabulary": [
+          { "id": "vocab_de_b1_verspaetung", "lemma": "die Verspätung", "translation": "delay", "pronunciation": "fer-SHPAY-toong", "partOfSpeech": "noun", "languageFeatures": { "gender": "feminine", "plural": "die Verspätungen" } },
+          { "id": "vocab_de_b1_ausfallen", "lemma": "ausfallen", "translation": "to be cancelled", "pronunciation": "OWS-fal-len", "partOfSpeech": "verb", "languageFeatures": { "separable": true } },
+          { "id": "vocab_de_b1_ersatzverkehr", "lemma": "der Ersatzverkehr", "translation": "replacement transport", "pronunciation": "air-ZATS-fair-kair", "partOfSpeech": "noun", "languageFeatures": { "gender": "masculine" } },
+          { "id": "vocab_de_b1_anschluss", "lemma": "der Anschluss", "translation": "connection", "pronunciation": "AN-shloos", "partOfSpeech": "noun", "languageFeatures": { "gender": "masculine", "plural": "die Anschlüsse" } },
+          { "id": "vocab_de_b1_erstatten", "lemma": "erstatten", "translation": "to refund", "pronunciation": "air-SHTAT-ten", "partOfSpeech": "verb", "languageFeatures": {} },
+          { "id": "vocab_de_b1_beschwerde", "lemma": "die Beschwerde", "translation": "complaint", "pronunciation": "buh-SHVAIR-duh", "partOfSpeech": "noun", "languageFeatures": { "gender": "feminine", "plural": "die Beschwerden" } }
+        ],
+        "sentences": [
+          { "id": "sentence_de_b1_travel_1", "text": "Der Zug fällt wegen einer technischen Störung aus.", "translation": "The train is cancelled because of a technical fault.", "note": "Wegen introduces the reason; ausfallen separates in the main clause." },
+          { "id": "sentence_de_b1_travel_2", "text": "Könnten Sie mir sagen, wann der Ersatzbus abfährt?", "translation": "Could you tell me when the replacement bus leaves?", "note": "The verb goes to the end in the indirect question." },
+          { "id": "sentence_de_b1_travel_3", "text": "Ich habe meinen Anschluss aufgrund der Verspätung verpasst.", "translation": "I missed my connection due to the delay.", "note": "Aufgrund der Verspätung gives a formal reason." },
+          { "id": "sentence_de_b1_travel_4", "text": "Falls der nächste Zug voll ist, nehme ich den Bus.", "translation": "If the next train is full, I will take the bus.", "note": "Falls introduces a possible condition and sends the verb to the end." },
+          { "id": "sentence_de_b1_travel_5", "text": "Ich möchte wissen, ob der Fahrpreis erstattet wird.", "translation": "I would like to know whether the fare will be refunded.", "note": "Ob introduces an indirect yes-or-no question." }
+        ],
+        "grammar": {
+          "id": "grammar_de_b1_indirect_questions",
+          "title": "Polite indirect questions",
+          "explanation": "Indirect questions make requests sound more polite. Use a question word or ob, and move the conjugated verb to the end of the subordinate clause.",
+          "pattern": "Könnten Sie sagen, question word/ob + ... + verb?",
+          "examples": [
+            { "source": "Wissen Sie, wann der Zug ankommt?", "translation": "Do you know when the train arrives?" },
+            { "source": "Könnten Sie prüfen, ob mein Ticket gültig ist?", "translation": "Could you check whether my ticket is valid?" }
+          ],
+          "commonMistake": "Do not keep direct-question word order inside the indirect clause."
+        },
+        "reading": {
+          "id": "reading_de_b1_travel_desk",
+          "title": "At the service desk",
+          "lines": [
+            { "speaker": "Reisende", "text": "Mein Zug ist ausgefallen, und ich habe den letzten Anschluss verpasst.", "translation": "My train was cancelled, and I missed the last connection." },
+            { "speaker": "Mitarbeiter", "text": "Es gibt einen Ersatzbus, der in zwanzig Minuten abfährt.", "translation": "There is a replacement bus that leaves in twenty minutes." },
+            { "speaker": "Reisende", "text": "Könnten Sie mir sagen, ob mein Ticket dort gültig ist?", "translation": "Could you tell me whether my ticket is valid on it?" },
+            { "speaker": "Mitarbeiter", "text": "Ja. Falls Sie ihn nicht nehmen, können Sie eine Erstattung beantragen.", "translation": "Yes. If you do not take it, you can request a refund." }
+          ]
+        },
+        "practice": {
+          "id": "practice_de_b1_travel",
+          "passThreshold": 67,
+          "questions": [
+            { "id": "practice_de_b1_travel_1", "type": "multiple_choice", "instruction": "Choose the matching meaning.", "prompt": "die Verspätung", "choices": ["delay", "connection", "refund"], "correctAnswer": "delay", "explanation": "Die Verspätung means a delay.", "skill": "vocabulary" },
+            { "id": "practice_de_b1_travel_2", "type": "multiple_choice", "instruction": "Choose the indirect question.", "prompt": "Ask when the bus leaves.", "choices": ["Könnten Sie sagen, wann der Bus abfährt?", "Könnten Sie sagen, wann fährt der Bus ab?", "Wann der Bus könnte abfahren?"], "correctAnswer": "Könnten Sie sagen, wann der Bus abfährt?", "explanation": "The conjugated verb goes to the end of the indirect question.", "skill": "grammar" },
+            { "id": "practice_de_b1_travel_3", "type": "multiple_choice", "instruction": "Choose the condition.", "prompt": "if the next train is full", "choices": ["falls der nächste Zug voll ist", "ob der nächste Zug voll ist", "wegen der nächste Zug voll ist"], "correctAnswer": "falls der nächste Zug voll ist", "explanation": "Falls introduces a possible condition.", "skill": "reading" }
+          ]
+        },
+        "quiz": {
+          "id": "quiz_de_b1_travel",
+          "title": "Travel disruption check",
+          "passThreshold": 80,
+          "questions": [
+            { "id": "quiz_de_b1_travel_1", "type": "multiple_choice", "instruction": "Choose the German noun.", "prompt": "replacement transport", "choices": ["der Ersatzverkehr", "der Anschluss", "die Beschwerde"], "correctAnswer": "der Ersatzverkehr", "explanation": "Der Ersatzverkehr is transport provided when normal service is unavailable.", "skill": "vocabulary" },
+            { "id": "quiz_de_b1_travel_2", "type": "multiple_choice", "instruction": "Complete the indirect question.", "prompt": "Ich möchte wissen, ___ das Ticket gültig ist.", "choices": ["ob", "wann", "falls"], "correctAnswer": "ob", "explanation": "Ob introduces an indirect yes-or-no question.", "skill": "grammar" },
+            { "id": "quiz_de_b1_travel_3", "type": "multiple_choice", "instruction": "Choose the correct word order.", "prompt": "when the replacement bus leaves", "choices": ["wann der Ersatzbus abfährt", "wann fährt der Ersatzbus ab", "wann der Ersatzbus fährt ab"], "correctAnswer": "wann der Ersatzbus abfährt", "explanation": "The verb belongs at the end of an indirect question.", "skill": "grammar" },
+            { "id": "quiz_de_b1_travel_4", "type": "multiple_choice", "instruction": "Choose the matching sentence.", "prompt": "The train is cancelled.", "choices": ["Der Zug fällt aus.", "Der Zug steigt um.", "Der Zug erstattet."], "correctAnswer": "Der Zug fällt aus.", "explanation": "Ausfallen means to be cancelled.", "skill": "reading" },
+            { "id": "quiz_de_b1_travel_5", "type": "multiple_choice", "instruction": "Recall the service-desk conversation.", "prompt": "What can the traveler request instead of taking the bus?", "choices": ["A refund", "A hotel room", "A new passport"], "correctAnswer": "A refund", "explanation": "The employee says the traveler can request a refund.", "skill": "reading" }
+          ]
+        }
+      },
+      {
+        "id": "lesson_de_b1_community",
+        "slug": "taking-part-in-the-community",
+        "title": "Taking part in the community",
+        "summary": "Discuss local issues, volunteer, and explain how a proposal could help.",
+        "estimatedMinutes": 17,
+        "status": "published",
+        "revision": 1,
+        "heroTitle": "Make your voice useful in the community.",
+        "completionTitle": "You can discuss community participation.",
+        "objectives": ["Describe volunteering and local participation", "Explain methods with indem", "Present a proposal and its intended result"],
+        "vocabulary": [
+          { "id": "vocab_de_b1_ehrenamtlich", "lemma": "ehrenamtlich", "translation": "voluntary / unpaid", "pronunciation": "AIR-en-amt-likh", "partOfSpeech": "adjective", "languageFeatures": {} },
+          { "id": "vocab_de_b1_nachbarschaft", "lemma": "die Nachbarschaft", "translation": "neighborhood", "pronunciation": "NAKH-bar-shaft", "partOfSpeech": "noun", "languageFeatures": { "gender": "feminine", "plural": "die Nachbarschaften" } },
+          { "id": "vocab_de_b1_sich_beteiligen", "lemma": "sich beteiligen", "translation": "to participate / get involved", "pronunciation": "zikh buh-TY-li-gen", "partOfSpeech": "verb", "languageFeatures": { "reflexive": true, "preposition": "an + dative" } },
+          { "id": "vocab_de_b1_unterstuetzen", "lemma": "unterstützen", "translation": "to support", "pronunciation": "oon-ter-SHTUET-tsen", "partOfSpeech": "verb", "languageFeatures": {} },
+          { "id": "vocab_de_b1_vorschlag", "lemma": "der Vorschlag", "translation": "proposal / suggestion", "pronunciation": "FOR-shlahk", "partOfSpeech": "noun", "languageFeatures": { "gender": "masculine", "plural": "die Vorschläge" } },
+          { "id": "vocab_de_b1_entscheidung", "lemma": "die Entscheidung", "translation": "decision", "pronunciation": "ent-SHY-doong", "partOfSpeech": "noun", "languageFeatures": { "gender": "feminine", "plural": "die Entscheidungen" } }
+        ],
+        "sentences": [
+          { "id": "sentence_de_b1_community_1", "text": "Ich engagiere mich ehrenamtlich in unserer Nachbarschaft.", "translation": "I volunteer in our neighborhood.", "note": "Sich engagieren is reflexive and commonly describes voluntary involvement." },
+          { "id": "sentence_de_b1_community_2", "text": "Viele Bewohner beteiligen sich an dem neuen Projekt.", "translation": "Many residents are taking part in the new project.", "note": "Sich beteiligen uses an plus the dative case." },
+          { "id": "sentence_de_b1_community_3", "text": "Wir unterstützen ältere Menschen, indem wir Einkäufe erledigen.", "translation": "We support older people by doing their shopping.", "note": "Indem explains the method used to achieve something." },
+          { "id": "sentence_de_b1_community_4", "text": "Wir sammeln Ideen, damit alle mitentscheiden können.", "translation": "We collect ideas so that everyone can help decide.", "note": "Damit introduces an intended result with a different subject." },
+          { "id": "sentence_de_b1_community_5", "text": "Der Vorschlag wurde nach einer langen Diskussion angenommen.", "translation": "The proposal was accepted after a long discussion.", "note": "The past passive uses wurde plus the past participle." }
+        ],
+        "grammar": {
+          "id": "grammar_de_b1_indem_damit",
+          "title": "Explaining method and purpose",
+          "explanation": "Use indem to explain how an action is carried out. Use damit to explain the intended result, especially when the clauses have different subjects.",
+          "pattern": "result + indem + method / action + damit + intended result",
+          "examples": [
+            { "source": "Wir sparen Energie, indem wir das Licht ausschalten.", "translation": "We save energy by turning off the light." },
+            { "source": "Wir informieren alle, damit niemand die Sitzung verpasst.", "translation": "We inform everyone so that nobody misses the meeting." }
+          ],
+          "commonMistake": "Do not use indem for a goal; it describes the method that produces a result."
+        },
+        "reading": {
+          "id": "reading_de_b1_community_meeting",
+          "title": "A neighborhood proposal",
+          "lines": [
+            { "speaker": "Mara", "text": "Wir möchten den Innenhof gemeinsam nutzen. Wer will sich beteiligen?", "translation": "We would like to use the courtyard together. Who wants to get involved?" },
+            { "speaker": "Luis", "text": "Ich helfe, indem ich Pflanzen und Werkzeug organisiere.", "translation": "I will help by organizing plants and tools." },
+            { "speaker": "Mara", "text": "Wir sammeln zuerst Vorschläge, damit alle Nachbarn mitentscheiden können.", "translation": "First we will collect proposals so that all neighbors can help decide." },
+            { "speaker": "Luis", "text": "Gut. Dann wird das Projekt von der ganzen Nachbarschaft unterstützt.", "translation": "Good. Then the project will be supported by the whole neighborhood." }
+          ]
+        },
+        "practice": {
+          "id": "practice_de_b1_community",
+          "passThreshold": 67,
+          "questions": [
+            { "id": "practice_de_b1_community_1", "type": "multiple_choice", "instruction": "Choose the matching meaning.", "prompt": "ehrenamtlich", "choices": ["voluntary", "official", "temporary"], "correctAnswer": "voluntary", "explanation": "Ehrenamtlich describes unpaid work done for a community or cause.", "skill": "vocabulary" },
+            { "id": "practice_de_b1_community_2", "type": "multiple_choice", "instruction": "Choose the method connector.", "prompt": "Wir helfen, ___ wir Einkäufe erledigen.", "choices": ["indem", "damit", "obwohl"], "correctAnswer": "indem", "explanation": "Indem introduces the method used to help.", "skill": "grammar" },
+            { "id": "practice_de_b1_community_3", "type": "multiple_choice", "instruction": "Choose the purpose connector.", "prompt": "Wir sammeln Ideen, ___ alle mitentscheiden können.", "choices": ["damit", "indem", "während"], "correctAnswer": "damit", "explanation": "Damit introduces the intended result for another subject.", "skill": "reading" }
+          ]
+        },
+        "quiz": {
+          "id": "quiz_de_b1_community",
+          "title": "Community check",
+          "passThreshold": 80,
+          "questions": [
+            { "id": "quiz_de_b1_community_1", "type": "multiple_choice", "instruction": "Choose the German noun.", "prompt": "proposal", "choices": ["der Vorschlag", "die Entscheidung", "die Nachbarschaft"], "correctAnswer": "der Vorschlag", "explanation": "Der Vorschlag means proposal or suggestion.", "skill": "vocabulary" },
+            { "id": "quiz_de_b1_community_2", "type": "multiple_choice", "instruction": "Choose the method clause.", "prompt": "by organizing tools", "choices": ["indem ich Werkzeug organisiere", "damit ich Werkzeug organisiere", "obwohl Werkzeug organisiert"], "correctAnswer": "indem ich Werkzeug organisiere", "explanation": "Indem introduces the method.", "skill": "grammar" },
+            { "id": "quiz_de_b1_community_3", "type": "multiple_choice", "instruction": "Complete the preposition.", "prompt": "Viele beteiligen sich ___ dem Projekt.", "choices": ["an", "für", "über"], "correctAnswer": "an", "explanation": "Sich beteiligen is used with an plus the dative.", "skill": "grammar" },
+            { "id": "quiz_de_b1_community_4", "type": "multiple_choice", "instruction": "Choose the correct purpose clause.", "prompt": "so that everyone can decide", "choices": ["damit alle mitentscheiden können", "indem alle mitentscheiden können", "damit können alle mitentscheiden"], "correctAnswer": "damit alle mitentscheiden können", "explanation": "Damit introduces purpose and sends the verb to the end.", "skill": "reading" },
+            { "id": "quiz_de_b1_community_5", "type": "multiple_choice", "instruction": "Recall the meeting.", "prompt": "What will Luis organize?", "choices": ["Plants and tools", "Food and tickets", "A language course"], "correctAnswer": "Plants and tools", "explanation": "Luis offers to organize plants and tools.", "skill": "reading" }
+          ]
+        }
+      }
+    ]
+  }]
+}

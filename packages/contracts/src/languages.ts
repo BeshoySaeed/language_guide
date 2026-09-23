@@ -1,7 +1,7 @@
 import { z } from "zod";
 
-export const cefrLevelSchema = z.enum(["A1", "A2", "B1", "B2"]);
-export const languageCodeSchema = z.enum(["en", "de", "es"]);
+export const cefrLevelSchema = z.enum(["A1", "A2", "B1"]);
+export const languageCodeSchema = z.literal("de");
 
 export const languageSchema = z.object({
   code: languageCodeSchema,
@@ -18,4 +18,3 @@ export const enrollmentInputSchema = z.object({
 });
 
 export type EnrollmentInput = z.infer<typeof enrollmentInputSchema>;
-
