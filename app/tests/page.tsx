@@ -15,13 +15,13 @@ export default async function TestsPage() {
     <div className="mx-auto max-w-[1080px] px-5 py-10 sm:px-8 lg:py-16">
       <p className="text-sm font-bold text-progress">German checkpoints</p>
       <h1 className="font-display mt-2 text-[clamp(2.5rem,7vw,5rem)] font-bold leading-[0.95] tracking-[-0.06em]">See what you can use.</h1>
-      <p className="mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">Results identify strong areas and lessons worth revisiting. The A1 final includes writing and microphone-supported speaking in addition to recognition skills.</p>
+      <p className="mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">Results identify strong areas and lessons worth revisiting. Every completed level final includes writing and microphone-supported speaking in addition to recognition skills.</p>
       <div className="mt-9 grid gap-4 md:grid-cols-3">{GERMAN_LEVELS.map((level) => {
         const assessment = getPublicGermanLevelAssessment(level);
         return <article key={level} className="rounded-[26px] border border-border bg-card p-6 shadow-[0_10px_30px_rgba(22,44,52,0.05)]">
           <div className="flex items-center justify-between"><span className="grid size-12 place-items-center rounded-2xl bg-accent font-display text-lg font-bold text-progress">{level}</span><span className="text-xs font-bold text-muted-foreground">{listPublicLessons(level).length} lessons</span></div>
           <h2 className="font-display mt-6 text-2xl font-bold">German {level} test</h2>
-          <div className="mt-4 grid gap-2 text-sm text-muted-foreground"><p className="flex items-center gap-2"><ListChecks className="size-4 text-progress" />{assessment.questions.length} scored questions</p><p className="flex items-center gap-2"><Headphones className="size-4 text-progress" />{level === "A1" ? "Seven skill areas" : "Listening included"}</p><p className="flex items-center gap-2"><CheckCircle2 className="size-4 text-progress" />Pass at {assessment.passThreshold}%</p></div>
+          <div className="mt-4 grid gap-2 text-sm text-muted-foreground"><p className="flex items-center gap-2"><ListChecks className="size-4 text-progress" />{assessment.questions.length} scored questions</p><p className="flex items-center gap-2"><Headphones className="size-4 text-progress" />Seven skill areas</p><p className="flex items-center gap-2"><CheckCircle2 className="size-4 text-progress" />Pass at {assessment.passThreshold}%</p></div>
           <Button asChild className="mt-6 w-full"><Link href={`/tests/${level.toLowerCase()}`}>Start {level} test<ArrowRight /></Link></Button>
         </article>;
       })}</div>

@@ -135,7 +135,17 @@ function scramblePhrase(phrase: string, random: () => number): string {
 
 function stripPunctuation(value: string): string { return value.replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/gu, ""); }
 function normalize(value: string): string { return value.normalize("NFKC").toLocaleLowerCase("de-DE"); }
-function unique(values: readonly string[]): string[] { return values.filter((value, index) => values.findIndex((candidate) => normalize(candidate) === normalize(value)) === index); }
+function unique(values: readonly string[]): string[] {
+  const seen = new Set<string>();
+  const result: string[] = [];
+  for (const value of values) {
+    const normalized = normalize(value);
+    if (seen.has(normalized)) continue;
+    seen.add(normalized);
+    result.push(value);
+  }
+  return result;
+}
 
 function seededRandom(seed: string): () => number {
   let state = 2166136261;

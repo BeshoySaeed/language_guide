@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 
-import { GERMAN_LEVELS, getAssessmentQuestions, getPublicLessonBySlug, listGermanCourses, listPublicLessons, listVocabulary } from "../infrastructure/catalog/lesson-content.ts";
+import { GERMAN_LEVELS, getAssessmentQuestions, getPublicLessonBySlug, getVocabularyById, listGermanCourses, listPublicLessons, listVocabulary } from "../infrastructure/catalog/lesson-content.ts";
 
 describe("German A1-B1 starter content", () => {
   it("uses stable unique IDs and supports chapter-based courses at every level", () => {
@@ -31,13 +31,36 @@ describe("German A1-B1 starter content", () => {
     const shopping = getPublicLessonBySlug("A2", "smart-shopping");
     const health = getPublicLessonBySlug("A2", "everyday-health-help");
 
-    assert.equal(lessons.length, 6);
+    assert.equal(lessons.length, 42);
     assert.equal(shopping?.chapterTitle, "A practical day");
     assert.equal(shopping?.chapterOrder, 2);
     assert.equal(shopping?.chapterLessonOrder, 1);
     assert.equal(shopping?.order, 4);
     assert.equal(health?.chapterLessonOrder, 3);
     assert.equal(health?.order, 6);
+  });
+
+  it("finishes A2 with integrated communication and production review", () => {
+    const reading = getPublicLessonBySlug("A2", "reading-connected-texts");
+    const production = getPublicLessonBySlug("A2", "a2-speaking-and-writing-review");
+
+    assert.equal(reading?.chapterTitle, "Integrated communication");
+    assert.equal(reading?.chapterOrder, 13);
+    assert.equal(reading?.order, 37);
+    assert.equal(production?.chapterTitle, "A2 review and production");
+    assert.equal(production?.chapterOrder, 14);
+    assert.equal(production?.order, 42);
+  });
+
+  it("excludes quarantined synthetic A2 vocabulary while keeping authored lessons available", () => {
+    const lessons = listPublicLessons("A2");
+    const vocabulary = listVocabulary("A2");
+    const authoredVocabularyCount = lessons.reduce((total, lesson) => total + lesson.vocabulary.length, 0);
+    assert.ok(vocabulary.length >= authoredVocabularyCount);
+    assert.ok(vocabulary.every((item) => item.vocabulary.languageFeatures.qualityStatus !== "quarantined"));
+    assert.ok(lessons.reduce((total, lesson) => total + lesson.sentences.length, 0) >= 300);
+    assert.ok((listGermanCourses().find((course) => course.levelCode === "A2")?.coreVocabulary ?? []).some((item) => item.languageFeatures.qualityStatus === "quarantined"));
+    assert.equal(getVocabularyById("vocab_de_a2_core_0001"), undefined);
   });
 
   it("serves the second A1 chapter with stable course and chapter ordering", () => {
@@ -174,11 +197,89 @@ describe("German A1-B1 starter content", () => {
     const learning = getPublicLessonBySlug("B1", "learning-and-development");
     const community = getPublicLessonBySlug("B1", "taking-part-in-the-community");
 
-    assert.equal(lessons.length, 6);
+    assert.equal(lessons.length, 42);
     assert.equal(learning?.chapterTitle, "Learning and participation");
     assert.equal(learning?.chapterOrder, 2);
     assert.equal(learning?.chapterLessonOrder, 1);
     assert.equal(learning?.order, 4);
     assert.equal(community?.order, 6);
+  });
+
+  it("starts the expanded B1 sequence with narration, professional communication, and consumer rights", () => {
+    const turningPoints = getPublicLessonBySlug("B1", "turning-points");
+    const applications = getPublicLessonBySlug("B1", "applications-and-career-profiles");
+    const authorities = getPublicLessonBySlug("B1", "authorities-forms-and-procedures");
+
+    assert.equal(turningPoints?.chapterTitle, "Stories and life changes");
+    assert.equal(turningPoints?.chapterOrder, 3);
+    assert.equal(turningPoints?.order, 7);
+    assert.equal(applications?.chapterTitle, "Professional communication");
+    assert.equal(applications?.chapterOrder, 4);
+    assert.equal(applications?.order, 10);
+    assert.equal(authorities?.chapterTitle, "Consumer rights and administration");
+    assert.equal(authorities?.chapterOrder, 5);
+    assert.equal(authorities?.order, 15);
+  });
+
+  it("continues B1 with travel, resilience, and social participation", () => {
+    const travel = getPublicLessonBySlug("B1", "planning-complex-journeys");
+    const health = getPublicLessonBySlug("B1", "healthcare-choices-and-second-opinions");
+    const society = getPublicLessonBySlug("B1", "perspectives-in-a-diverse-society");
+    const lessons = listPublicLessons("B1");
+
+    assert.equal(lessons.length, 42);
+    assert.equal(travel?.chapterTitle, "Travel and mobility");
+    assert.equal(travel?.chapterOrder, 6);
+    assert.equal(travel?.order, 16);
+    assert.equal(health?.chapterTitle, "Health and resilience");
+    assert.equal(health?.chapterOrder, 7);
+    assert.equal(health?.order, 19);
+    assert.equal(society?.chapterTitle, "Society and participation");
+    assert.equal(society?.chapterOrder, 8);
+    assert.equal(society?.order, 24);
+  });
+
+  it("continues B1 with sustainability, digital media, and relationship skills", () => {
+    const environment = getPublicLessonBySlug("B1", "climate-choices-and-consequences");
+    const media = getPublicLessonBySlug("B1", "checking-sources-and-claims");
+    const relationships = getPublicLessonBySlug("B1", "generations-and-changing-roles");
+    const lessons = listPublicLessons("B1");
+
+    assert.equal(lessons.length, 42);
+    assert.equal(environment?.chapterTitle, "Environment and sustainability");
+    assert.equal(environment?.chapterOrder, 9);
+    assert.equal(environment?.order, 25);
+    assert.equal(media?.chapterTitle, "Media and digital life");
+    assert.equal(media?.chapterOrder, 10);
+    assert.equal(media?.order, 28);
+    assert.equal(relationships?.chapterTitle, "Relationships and communication");
+    assert.equal(relationships?.chapterOrder, 11);
+    assert.equal(relationships?.order, 33);
+  });
+
+  it("finishes B1 with grammar precision, integrated communication, and production review", () => {
+    const grammar = getPublicLessonBySlug("B1", "complex-clauses-and-connectors");
+    const integrated = getPublicLessonBySlug("B1", "reading-longer-informative-texts");
+    const final = getPublicLessonBySlug("B1", "b1-final-preparation-and-self-assessment");
+
+    assert.equal(grammar?.chapterTitle, "Grammar precision");
+    assert.equal(grammar?.chapterOrder, 12);
+    assert.equal(grammar?.order, 34);
+    assert.equal(integrated?.chapterTitle, "Integrated communication");
+    assert.equal(integrated?.chapterOrder, 13);
+    assert.equal(integrated?.order, 37);
+    assert.equal(final?.chapterTitle, "B1 review and production");
+    assert.equal(final?.chapterOrder, 14);
+    assert.equal(final?.order, 42);
+  });
+
+  it("excludes quarantined synthetic B1 vocabulary while keeping authored lessons available", () => {
+    const lessons = listPublicLessons("B1");
+    const vocabulary = listVocabulary("B1");
+    const authoredVocabularyCount = lessons.reduce((total, lesson) => total + lesson.vocabulary.length, 0);
+    assert.ok(vocabulary.length >= authoredVocabularyCount);
+    assert.ok(vocabulary.every((item) => item.vocabulary.languageFeatures.qualityStatus !== "quarantined"));
+    assert.ok(lessons.reduce((total, lesson) => total + lesson.sentences.length, 0) >= 300);
+    assert.ok((listGermanCourses().find((course) => course.levelCode === "B1")?.coreVocabulary ?? []).some((item) => item.languageFeatures.qualityStatus === "quarantined"));
   });
 });

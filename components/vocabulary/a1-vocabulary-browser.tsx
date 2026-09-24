@@ -8,9 +8,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useGermanSpeech } from "@/hooks/use-german-speech";
 
-type Item = Readonly<{ id: string; lemma: string; translation: string; partOfSpeech: string; pronunciation: string; topic: string; sourceLessonId: string; sourceLessonSlug: string }>;
+type Item = Readonly<{ id: string; lemma: string; translation: string; partOfSpeech: string; pronunciation: string; topic: string; sourceLessonId: string; sourceLessonSlug: string; exampleSentence?: string; exampleTranslation?: string }>;
 
-export function A1VocabularyBrowser({ items, initialQuery, initialSavedIds, signedIn }: { items: readonly Item[]; initialQuery: string; initialSavedIds: readonly string[]; signedIn: boolean }) {
+export function LevelVocabularyBrowser({ items, initialQuery, initialSavedIds, signedIn, level }: { items: readonly Item[]; initialQuery: string; initialSavedIds: readonly string[]; signedIn: boolean; level: "A1" | "A2" | "B1" }) {
   const [query, setQuery] = useState(initialQuery);
   const [part, setPart] = useState("all");
   const [visible, setVisible] = useState(40);
@@ -46,16 +46,34 @@ export function A1VocabularyBrowser({ items, initialQuery, initialSavedIds, sign
 
   return <section className="mt-9">
     <div className="grid gap-3 rounded-2xl border border-border bg-card p-4 sm:grid-cols-[minmax(0,1fr)_220px]">
-      <label className="relative"><span className="sr-only">Search A1 vocabulary</span><Search className="absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" /><Input value={query} onChange={(event) => { setQuery(event.target.value); setVisible(40); }} placeholder="Search German, English, or topic" className="h-12 pl-10" /></label>
+      <label className="relative"><span className="sr-only">Search {level} vocabulary</span><Search className="absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" /><Input value={query} onChange={(event) => { setQuery(event.target.value); setVisible(40); }} placeholder="Search German, English, or topic" className="h-12 pl-10" /></label>
       <label><span className="sr-only">Filter by word type</span><select value={part} onChange={(event) => { setPart(event.target.value); setVisible(40); }} className="h-12 w-full rounded-md border border-input bg-background px-3 text-sm font-semibold">{parts.map((value) => <option key={value} value={value}>{value === "all" ? "All word types" : value}</option>)}</select></label>
     </div>
     <div className="mt-4 flex items-center justify-between text-sm font-semibold text-muted-foreground"><p>{filtered.length} matching cards</p><p>{saved.size} saved</p></div>
     <p aria-live="polite" className="mt-2 min-h-5 text-sm font-semibold text-muted-foreground">{speech.message ?? message}</p>
-    <div className="mt-2 grid gap-3 md:grid-cols-2">{filtered.slice(0, visible).map((item) => { const active = speech.activeText === item.lemma; const isSaved = saved.has(item.id); return <article key={item.id} className="rounded-2xl border border-border bg-card p-5"><div className="flex items-start gap-3"><div className="min-w-0 flex-1"><p className="text-xs font-bold uppercase tracking-wide text-progress">{broadPart(item.partOfSpeech)} · {item.topic}</p><h2 className="font-display mt-1 text-2xl font-bold">{item.lemma}</h2><p className="mt-1 text-sm text-muted-foreground">{item.translation}{item.pronunciation !== "audio" ? ` · /${item.pronunciation}/` : ""}</p></div><Button variant={active ? "default" : "outline"} size="icon" disabled={active && speech.isBusy} onClick={() => speech.speak(item.lemma)} aria-label={`Hear ${item.lemma} in German`}>{active && speech.status === "loading" ? <LoaderCircle className="animate-spin" /> : active && speech.status === "speaking" ? <Volume2 /> : <Headphones />}</Button>{signedIn ? <Button variant={isSaved ? "default" : "outline"} size="icon" disabled={saving === item.id} aria-pressed={isSaved} onClick={() => void toggle(item)} aria-label={isSaved ? `Remove ${item.lemma} from review` : `Save ${item.lemma} for review`}><Bookmark className={isSaved ? "fill-current" : ""} /></Button> : <Button asChild variant="outline" size="icon"><a href={chatGPTSignInPath("/vocabulary")} target="_top" aria-label={`Sign in to save ${item.lemma}`}><Bookmark /></a></Button>}</div><Link href={`/learn/de/a1/${item.sourceLessonSlug}`} className="mt-3 inline-block text-xs font-bold text-primary hover:underline">Related lesson</Link></article>; })}</div>
-    {!filtered.length ? <p className="mt-10 rounded-2xl border border-dashed border-border p-8 text-center text-muted-foreground">No A1 cards match that search.</p> : null}
+    <div className="mt-2 grid gap-3 md:grid-cols-2">{filtered.slice(0, visible).map((item) => {
+      const active = speech.activeText === item.lemma;
+      const isSaved = saved.has(item.id);
+      return <article key={item.id} className="rounded-2xl border border-border bg-card p-5">
+        <div className="flex items-start gap-3">
+          <div className="min-w-0 flex-1">
+            <p className="text-xs font-bold uppercase tracking-wide text-progress">{broadPart(item.partOfSpeech)} · {item.topic}</p>
+            <h2 className="font-display mt-1 text-2xl font-bold">{item.lemma}</h2>
+            <p className="mt-1 text-sm text-muted-foreground">{item.translation}{item.pronunciation !== "audio" ? ` · /${item.pronunciation}/` : ""}</p>
+            {item.exampleSentence ? <div className="mt-3 rounded-xl bg-muted/70 p-3"><p className="text-sm font-semibold">{item.exampleSentence}</p>{item.exampleTranslation ? <p className="mt-1 text-xs text-muted-foreground">{item.exampleTranslation}</p> : null}</div> : null}
+          </div>
+          <Button variant={active ? "default" : "outline"} size="icon" disabled={active && speech.isBusy} onClick={() => speech.speak(item.lemma)} aria-label={`Hear ${item.lemma} in German`}>{active && speech.status === "loading" ? <LoaderCircle className="animate-spin" /> : active && speech.status === "speaking" ? <Volume2 /> : <Headphones />}</Button>
+          {signedIn ? <Button variant={isSaved ? "default" : "outline"} size="icon" disabled={saving === item.id} aria-pressed={isSaved} onClick={() => void toggle(item)} aria-label={isSaved ? `Remove ${item.lemma} from review` : `Save ${item.lemma} for review`}><Bookmark className={isSaved ? "fill-current" : ""} /></Button> : <Button asChild variant="outline" size="icon"><a href={chatGPTSignInPath(`/vocabulary?level=${level}`)} target="_top" aria-label={`Sign in to save ${item.lemma}`}><Bookmark /></a></Button>}
+        </div>
+        <Link href={`/learn/de/${level.toLowerCase()}/${item.sourceLessonSlug}`} className="mt-3 inline-block text-xs font-bold text-primary hover:underline">Related lesson</Link>
+      </article>;
+    })}</div>
+    {!filtered.length ? <p className="mt-10 rounded-2xl border border-dashed border-border p-8 text-center text-muted-foreground">No {level} cards match that search.</p> : null}
     {visible < filtered.length ? <div className="mt-7 text-center"><Button variant="outline" size="lg" onClick={() => setVisible((count) => count + 40)}>Show 40 more</Button></div> : null}
   </section>;
 }
+
+export const A1VocabularyBrowser = LevelVocabularyBrowser;
 
 function broadPart(part: string) {
   if (part.includes("verb") || part.includes("tense")) return "Verbs";

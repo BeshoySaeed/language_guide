@@ -65,6 +65,8 @@ const bookSchema = z.object({
     pronunciation: z.string().min(1),
     partOfSpeech: z.string().min(2),
     languageFeatures: z.record(z.unknown()),
+    exampleSentence: z.string().min(3).optional(),
+    exampleTranslation: z.string().min(3).optional(),
     sourceLessonId: z.string().startsWith("lesson_"),
   })).optional(),
 }).passthrough();
@@ -96,6 +98,13 @@ for (const contentPath of contentPaths) {
   const lessonIds = new Set(result.data.chapters.flatMap((chapter) => chapter.lessons.map((lesson) => lesson.id)));
   for (const item of result.data.coreVocabulary ?? []) {
     if (!lessonIds.has(item.sourceLessonId)) throw new Error(`${item.id}: sourceLessonId must identify a lesson in the same book`);
+    const qualityStatus = item.languageFeatures?.qualityStatus;
+    if (qualityStatus !== undefined && !["published", "reviewed", "quarantined"].includes(String(qualityStatus))) {
+      throw new Error(`${item.id}: unknown vocabulary quality status ${String(qualityStatus)}`);
+    }
+    if (qualityStatus !== "quarantined" && ["case chunk", "formal noun chunk", "infinitive frame", "descriptive chunk", "useful sentence"].includes(item.partOfSpeech)) {
+      throw new Error(`${item.id}: synthetic vocabulary patterns must be quarantined and replaced with authored lexical items`);
+    }
   }
   for (const chapter of result.data.chapters) {
     lessonCount += chapter.lessons.length;

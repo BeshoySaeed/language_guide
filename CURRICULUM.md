@@ -22,16 +22,20 @@ The internally reviewed A1 book now contains all 14 planned chapters, 42 lessons
 - At least 1,200 additional A2 vocabulary cards
 - At least 300 additional A2 useful-sentence cards
 - Broader everyday, travel, work, social, and service interactions
-- A five-skill level test with at least 15 questions
+- A seven-skill final with recognition, listening, writing, and speaking production
 - Automated validation and internal editorial review
+
+The A2 book contains 14 ordered chapters, 42 lessons, 318 reusable sentence cards, 42 grammar topics, and 336 lesson questions. Its 876 synthetic supplemental vocabulary combinations are quarantined and excluded from learning, search, review, and assessment. Reviewed replacement batch one raises the published bank to 352 items. See `A2_CURRICULUM_AUDIT.md`.
 
 ### 10.8 — Complete B1
 
 - At least 1,200 additional B1 vocabulary cards
 - At least 300 additional B1 useful-sentence cards
 - Independent-life topics with connected speech, opinions, narration, problem-solving, work, study, travel, and participation
-- A five-skill level test with at least 15 questions
+- A seven-skill final with recognition, listening, writing, and speaking production
 - Automated validation and internal editorial review
+
+The B1 book contains 14 ordered chapters, 42 lessons, 318 reusable sentence cards, 42 grammar topics, and 336 lesson questions. Its 876 synthetic supplemental vocabulary combinations are quarantined and excluded from learning, search, review, and assessment. Reviewed replacement batch one raises the published bank to 351 items. The strong-B1 outcome requirements are defined in `quality/self-contained-b1-plan.md`. See `B1_CURRICULUM_AUDIT.md`.
 
 ### 10.9 — External validation and release
 
@@ -60,7 +64,7 @@ The content validator checks this structure, and the curriculum audit requires i
 
 ## Recording the learner pilot
 
-Copy `quality/learner-pilot-results.example.json` to `quality/learner-pilot-results.json` only when a real pilot begins. Use anonymous participant IDs, keep personal data outside the repository, and set `status` to `passed` only after every participant finishes and all release-blocking findings are closed.
+Copy `quality/a1-learner-pilot-results.example.json` to `quality/a1-learner-pilot-results.json` only when a real pilot begins. Follow `quality/a1-learner-pilot-protocol.md`, use anonymous participant IDs, keep personal data outside the repository, and set `status` to `passed` only after all acceptance criteria are genuinely met.
 
 ## Counting rules
 
@@ -68,4 +72,4 @@ Copy `quality/learner-pilot-results.example.json` to `quality/learner-pilot-resu
 - Sentence counts authored useful-sentence cards, not reading-dialogue lines.
 - Grammar topics count distinct authored grammar IDs.
 - Lesson questions include practice and lesson-quiz questions.
-- A1 level-test questions are generated independently and cover vocabulary, sentences, grammar, reading, listening, writing, and speaking. A2 and B1 currently use five-skill checkpoints.
+- A1, A2, and B1 level-test questions are generated independently and cover vocabulary, sentences, grammar, reading, listening, writing, and speaking.

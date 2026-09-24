@@ -24,7 +24,13 @@ export type VocabularyItem = Readonly<{
   pronunciation: string;
   partOfSpeech: string;
   languageFeatures: Readonly<Record<string, string | boolean>>;
+  exampleSentence?: string;
+  exampleTranslation?: string;
 }>;
+
+export function isPublishedVocabulary(item: VocabularyItem): boolean {
+  return item.languageFeatures.qualityStatus !== "quarantined";
+}
 
 export type AuthoredLesson = Readonly<{
   id: string;
@@ -105,6 +111,8 @@ export type PublicLesson = Omit<AuthoredLesson, "practice" | "quiz"> & {
 };
 
 const germanCourses = [a1Source, a2Source, b1Source] as unknown as readonly AuthoredBook[];
+const publicLessonCache = new Map<GermanLevel, readonly PublicLesson[]>();
+const practiceChallengeCache = new Map<string, ReturnType<typeof generatePracticeChallenge>>();
 
 export const everydayEssentials = germanCourses[0];
 
@@ -153,7 +161,7 @@ export function getLessonBySlug(levelCode: GermanLevel, slug: string): AuthoredL
 
 export function getVocabularyById(contentItemId: string) {
   for (const book of germanCourses) {
-    const coreVocabulary = book.coreVocabulary?.find((item) => item.id === contentItemId);
+    const coreVocabulary = book.coreVocabulary?.find((item) => item.id === contentItemId && isPublishedVocabulary(item));
     if (coreVocabulary) {
       const lesson = getLessonById(coreVocabulary.sourceLessonId);
       if (lesson) return { vocabulary: coreVocabulary, lesson, languageCode: book.languageCode, levelCode: book.levelCode };
@@ -172,7 +180,7 @@ export function listVocabulary(levelCode?: GermanLevel) {
   const books = levelCode ? [getGermanCourse(levelCode)] : germanCourses;
   return books.flatMap((book) => {
     const lessonItems = book.chapters.flatMap((chapter) => chapter.lessons.flatMap((lesson) => lesson.vocabulary.map((vocabulary) => ({ vocabulary, lesson, levelCode: book.levelCode }))));
-    const coreItems = (book.coreVocabulary ?? []).flatMap((vocabulary) => {
+    const coreItems = (book.coreVocabulary ?? []).filter(isPublishedVocabulary).flatMap((vocabulary) => {
       const lesson = getLessonById(vocabulary.sourceLessonId);
       return lesson ? [{ vocabulary, lesson, levelCode: book.levelCode }] : [];
     });
@@ -181,11 +189,17 @@ export function listVocabulary(levelCode?: GermanLevel) {
 }
 
 export function getPracticeChallenge(seed: string, levelCode: GermanLevel = "A1") {
+  const cacheKey = `${levelCode}:${seed}`;
+  const cached = practiceChallengeCache.get(cacheKey);
+  if (cached) return cached;
   const course = getGermanCourse(levelCode);
-  return generatePracticeChallenge({
+  const challenge = generatePracticeChallenge({
     vocabulary: listVocabulary(levelCode).map(({ vocabulary }) => ({ id: vocabulary.id, lemma: vocabulary.lemma, translation: vocabulary.translation })),
     sentences: course.chapters.flatMap((chapter) => chapter.lessons.flatMap((lesson) => lesson.sentences.map((sentence) => ({ id: sentence.id, text: sentence.text, translation: sentence.translation })))),
   }, seed, levelCode);
+  practiceChallengeCache.set(cacheKey, challenge);
+  if (practiceChallengeCache.size > 12) practiceChallengeCache.delete(practiceChallengeCache.keys().next().value!);
+  return challenge;
 }
 
 export function getPublicPracticeChallenge(seed: string, levelCode: GermanLevel = "A1") {
@@ -200,8 +214,12 @@ export function getPublicLessonBySlug(levelCode: GermanLevel, slug: string): Pub
 }
 
 export function listPublicLessons(levelCode: GermanLevel = "A1"): readonly PublicLesson[] {
+  const cached = publicLessonCache.get(levelCode);
+  if (cached) return cached;
   const book = getGermanCourse(levelCode);
-  return listBookLessonContexts(book).map((context) => toPublicLesson(context, book));
+  const lessons = listBookLessonContexts(book).map((context) => toPublicLesson(context, book));
+  publicLessonCache.set(levelCode, lessons);
+  return lessons;
 }
 
 export function listAllPublicLessons(): readonly PublicLesson[] {

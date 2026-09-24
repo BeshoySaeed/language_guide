@@ -19,6 +19,7 @@ export type LevelAssessmentQuestion = Readonly<{
   correctAnswer: string;
   explanation: string;
   responseMode: "choice" | "text" | "speech";
+  gradingMode?: "exact" | "production_text" | "production_speech";
   audioText?: string;
 }>;
 
@@ -26,7 +27,7 @@ export type LevelAssessment = Readonly<{
   id: string;
   languageCode: "de";
   levelCode: "A1" | "A2" | "B1";
-  policyVersion: 1;
+  policyVersion: 2;
   passThreshold: 70 | 80;
   questions: readonly LevelAssessmentQuestion[];
 }>;
@@ -106,8 +107,9 @@ export function generateLevelAssessment(levelCode: LevelAssessment["levelCode"],
   }));
 
   const productionSource = sampleAcross(sentences, 3);
-  const writingQuestions = levelCode === "A1" ? productionSource.map((item, index): LevelAssessmentQuestion => ({
-    id: `level_test_de_a1_writing_${index + 1}`,
+  const includesProduction = true;
+  const writingQuestions = includesProduction ? productionSource.map((item, index): LevelAssessmentQuestion => ({
+    id: `level_test_de_${levelCode.toLowerCase()}_writing_${index + 1}`,
     skill: "writing",
     sourceLessonId: item.lesson.id,
     sourceLessonTitle: item.lesson.title,
@@ -117,9 +119,10 @@ export function generateLevelAssessment(levelCode: LevelAssessment["levelCode"],
     correctAnswer: item.text,
     explanation: `Model answer: ${item.text}`,
     responseMode: "text",
+    gradingMode: "production_text",
   })) : [];
-  const speakingQuestions = levelCode === "A1" ? sampleAcross(sentences.slice().reverse(), 3).map((item, index): LevelAssessmentQuestion => ({
-    id: `level_test_de_a1_speaking_${index + 1}`,
+  const speakingQuestions = includesProduction ? sampleAcross(sentences.slice().reverse(), 3).map((item, index): LevelAssessmentQuestion => ({
+    id: `level_test_de_${levelCode.toLowerCase()}_speaking_${index + 1}`,
     skill: "speaking",
     sourceLessonId: item.lesson.id,
     sourceLessonTitle: item.lesson.title,
@@ -129,14 +132,15 @@ export function generateLevelAssessment(levelCode: LevelAssessment["levelCode"],
     correctAnswer: item.text,
     explanation: `Target sentence: ${item.text}`,
     responseMode: "speech",
+    gradingMode: "production_speech",
   })) : [];
 
   return {
-    id: `level-test:de:${levelCode}:v1`,
+    id: `level-test:de:${levelCode}:v2`,
     languageCode: "de",
     levelCode,
-    policyVersion: 1,
-    passThreshold: levelCode === "A1" ? 80 : 70,
+    policyVersion: 2,
+    passThreshold: 80,
     questions: [...vocabularyQuestions, ...sentenceQuestions, ...grammarQuestions, ...readingQuestions, ...listeningQuestions, ...writingQuestions, ...speakingQuestions],
   };
 }
@@ -186,14 +190,21 @@ function sampleAcross<T>(items: readonly T[], count: number): T[] {
 }
 
 function choicesFor(correct: string, pool: readonly string[], offset: number): string[] {
-  const unique = pool.filter((value, index) => normalize(value) !== normalize(correct) && pool.findIndex((candidate) => normalize(candidate) === normalize(value)) === index);
+  const seen = new Set([normalize(correct)]);
+  const unique: string[] = [];
+  for (const value of pool) {
+    const normalized = normalize(value);
+    if (seen.has(normalized)) continue;
+    seen.add(normalized);
+    unique.push(value);
+  }
   const first = unique[offset % unique.length];
   const second = unique[(offset + Math.max(1, Math.floor(unique.length / 2))) % unique.length];
   return rotateUnique([correct, first, second], offset);
 }
 
 function rotateUnique(values: readonly string[], offset: number): string[] {
-  const unique = values.filter((value, index) => values.findIndex((candidate) => normalize(candidate) === normalize(value)) === index);
+  const unique = uniqueNormalized(values);
   if (unique.length !== 3) throw new Error("Assessment choices must contain three unique values.");
   const shift = offset % unique.length;
   return [...unique.slice(shift), ...unique.slice(0, shift)];
@@ -201,4 +212,16 @@ function rotateUnique(values: readonly string[], offset: number): string[] {
 
 function normalize(value: string): string {
   return value.normalize("NFKC").trim().toLocaleLowerCase("de-DE");
+}
+
+function uniqueNormalized(values: readonly string[]): string[] {
+  const seen = new Set<string>();
+  const result: string[] = [];
+  for (const value of values) {
+    const normalized = normalize(value);
+    if (seen.has(normalized)) continue;
+    seen.add(normalized);
+    result.push(value);
+  }
+  return result;
 }

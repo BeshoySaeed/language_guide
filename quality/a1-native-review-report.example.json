@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "level": "A1",
+  "status": "in_progress",
+  "reviewer": { "realName": "", "locale": "de-DE", "qualificationNote": "" },
+  "startedAt": "YYYY-MM-DD",
+  "completedAt": null,
+  "scope": {
+    "fullBook": true,
+    "chapterDecisions": [
+      { "chapterOrder": 1, "title": "Sound and structure", "status": "pending" },
+      { "chapterOrder": 2, "title": "Everyday essentials", "status": "pending" },
+      { "chapterOrder": 3, "title": "My life and my day", "status": "pending" },
+      { "chapterOrder": 4, "title": "Out and about", "status": "pending" },
+      { "chapterOrder": 5, "title": "Wellbeing and plans", "status": "pending" },
+      { "chapterOrder": 6, "title": "Calendar and identity", "status": "pending" },
+      { "chapterOrder": 7, "title": "Work and study", "status": "pending" },
+      { "chapterOrder": 8, "title": "Home and neighborhood", "status": "pending" },
+      { "chapterOrder": 9, "title": "Food and shopping", "status": "pending" },
+      { "chapterOrder": 10, "title": "Travel basics", "status": "pending" },
+      { "chapterOrder": 11, "title": "Communication and safety", "status": "pending" },
+      { "chapterOrder": 12, "title": "Grammar consolidation", "status": "pending" },
+      { "chapterOrder": 13, "title": "A1 bridge", "status": "pending" },
+      { "chapterOrder": 14, "title": "A1 review and production", "status": "pending" }
+    ],
+    "sevenSkillFinal": "pending",
+    "speechSampleEveryChapter": "pending",
+    "desktopAndMobile": "pending"
+  },
+  "findings": [],
+  "openCriticalFindings": 0,
+  "openHighFindings": 0,
+  "decision": "pending",
+  "signedByReviewer": false,
+  "notes": "Do not approve this report until the real full-scope review is complete."
+}

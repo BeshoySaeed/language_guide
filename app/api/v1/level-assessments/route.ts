@@ -27,6 +27,7 @@ export async function POST(request: Request) {
     return {
       ...answer,
       skill: question?.skill,
+      responseMode: question?.responseMode,
       correctAnswer: question?.correctAnswer ?? "",
       explanation: question?.explanation ?? "",
     };

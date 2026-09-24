@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
+import { NavigationLoader } from "@/components/app/navigation-loader";
 import { OfflineRuntime } from "@/components/offline/offline-runtime";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
@@ -25,6 +27,7 @@ export default function RootLayout({
       <body className="antialiased">
         <ThemeProvider>
           <a href="#main-content" className="skip-link">Skip to main content</a>
+          <Suspense fallback={null}><NavigationLoader /></Suspense>
           <OfflineRuntime />
           {children}
         </ThemeProvider>

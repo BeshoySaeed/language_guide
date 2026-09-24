@@ -6,18 +6,40 @@ import { GERMAN_LEVELS } from "../infrastructure/catalog/lesson-content.ts";
 import { gradeLevelAssessment, LEVEL_ASSESSMENT_SKILLS } from "../packages/domain/src/level-assessment.ts";
 
 describe("German level assessments", () => {
-  it("builds an A1 seven-skill production checkpoint and keeps later previews compatible", () => {
+  it("builds seven-skill production checkpoints for every completed level", () => {
     for (const level of GERMAN_LEVELS) {
       const assessment = getGermanLevelAssessment(level);
-      const requiredSkills = level === "A1" ? LEVEL_ASSESSMENT_SKILLS : LEVEL_ASSESSMENT_SKILLS.slice(0, 5);
-      assert.equal(assessment.questions.length, level === "A1" ? 21 : 15);
-      assert.equal(assessment.passThreshold, level === "A1" ? 80 : 70);
+      const requiredSkills = LEVEL_ASSESSMENT_SKILLS;
+      assert.equal(assessment.policyVersion, 2);
+      assert.match(assessment.id, /:v2$/u);
+      assert.equal(assessment.questions.length, 21);
+      assert.equal(assessment.passThreshold, 80);
       for (const skill of requiredSkills) {
         assert.equal(assessment.questions.filter((question) => question.skill === skill).length, 3);
       }
       assert.ok(assessment.questions.filter((question) => question.skill === "listening").every((question) => question.audioText));
       assert.ok(assessment.questions.filter((question) => question.responseMode === "choice").every((question) => question.choices.length === 3 && new Set(question.choices).size === 3));
+      assert.ok(assessment.questions.filter((question) => question.responseMode === "text").every((question) => question.gradingMode === "production_text"));
+      assert.ok(assessment.questions.filter((question) => question.responseMode === "speech").every((question) => question.gradingMode === "production_speech"));
     }
+  });
+
+  it("requires every B1 production skill to reach the minimum threshold", () => {
+    const assessment = getGermanLevelAssessment("B1");
+    const withoutSpeaking = assessment.questions.map((question) => ({ exerciseId: question.id, response: question.skill === "speaking" ? "" : question.correctAnswer }));
+    const grade = gradeLevelAssessment(assessment, withoutSpeaking);
+    assert.ok(grade.percent >= assessment.passThreshold);
+    assert.equal(grade.passed, false);
+    assert.deepEqual(grade.weakSkills, ["speaking"]);
+  });
+
+  it("requires every A2 production skill to reach the minimum threshold", () => {
+    const assessment = getGermanLevelAssessment("A2");
+    const withoutWriting = assessment.questions.map((question) => ({ exerciseId: question.id, response: question.skill === "writing" ? "" : question.correctAnswer }));
+    const grade = gradeLevelAssessment(assessment, withoutWriting);
+    assert.ok(grade.percent >= assessment.passThreshold);
+    assert.equal(grade.passed, false);
+    assert.deepEqual(grade.weakSkills, ["writing"]);
   });
 
   it("keeps answer keys out of the public assessment", () => {
@@ -35,7 +57,7 @@ describe("German level assessments", () => {
 
     const empty = gradeLevelAssessment(assessment, assessment.questions.map((question) => ({ exerciseId: question.id, response: "" })));
     assert.equal(empty.percent, 0);
-    assert.deepEqual(empty.weakSkills, LEVEL_ASSESSMENT_SKILLS.slice(0, 5));
+    assert.deepEqual(empty.weakSkills, [...LEVEL_ASSESSMENT_SKILLS]);
     assert.ok(empty.recommendedLessons.length > 0 && empty.recommendedLessons.length <= 3);
   });
 

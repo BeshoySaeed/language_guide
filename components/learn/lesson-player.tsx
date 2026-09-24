@@ -11,8 +11,9 @@ import { useGermanSpeech } from "@/hooks/use-german-speech";
 import type { PublicChoiceQuestion, PublicLesson } from "@/infrastructure/catalog/lesson-content";
 import { prefersReducedMotion } from "@/lib/motion";
 import { submitWithOfflineFallback } from "@/lib/offline-sync";
+import { productionMatchPercent } from "@/packages/domain/src/assessment";
 
-type SectionId = "overview" | "vocabulary" | "sentences" | "grammar" | "reading" | "practice" | "quiz" | "complete";
+type SectionId = "overview" | "vocabulary" | "sentences" | "grammar" | "reading" | "skills" | "practice" | "quiz" | "complete";
 type GradedAnswer = { exerciseId: string; correct: boolean; correctAnswer: string; explanation: string };
 type GradeResult = { score: number; maxScore: number; percent: number; passed: boolean; answers: GradedAnswer[]; progress: { state: string; percent: number } };
 
@@ -22,6 +23,7 @@ const sectionMeta: readonly { id: SectionId; label: string }[] = [
   { id: "sentences", label: "Useful phrases" },
   { id: "grammar", label: "Grammar pattern" },
   { id: "reading", label: "Mini dialogue" },
+  { id: "skills", label: "Skill studio" },
   { id: "practice", label: "Guided practice" },
   { id: "quiz", label: "Lesson check" },
   { id: "complete", label: "Summary" },
@@ -145,6 +147,7 @@ export function LessonPlayer({ lesson, signedIn, signInPath, offlineSnapshot = f
           {section === "sentences" ? <Sentences lesson={lesson} onContinue={next} speech={speech} /> : null}
           {section === "grammar" ? <Grammar lesson={lesson} onContinue={next} /> : null}
           {section === "reading" ? <Reading lesson={lesson} onContinue={next} /> : null}
+          {section === "skills" ? <SkillStudio lesson={lesson} speech={speech} onContinue={next} /> : null}
           {section === "practice" ? <AssessmentSection title="Try it with guidance" eyebrow="Practice · 3 questions" description="Choose an answer for every prompt. You’ll see explanations after submitting." questions={lesson.practice.questions} assessmentType="practice" lessonId={lesson.id} signedIn={signedIn} signInPath={signInPath} onPassed={() => { setPracticePassed(true); next(); }} continueLabel="Continue to quiz" /> : null}
           {section === "quiz" ? <AssessmentSection title="Show what you can do" eyebrow={`${lesson.quiz.title} · ${lesson.quiz.questions.length} questions`} description={`Score ${lesson.quiz.passThreshold}% or higher to complete the lesson. Your attempt is saved to your progress.`} questions={lesson.quiz.questions} assessmentType="quiz" lessonId={lesson.id} signedIn={signedIn} signInPath={signInPath} onPassed={(result) => { setQuizResult(result); move("complete"); }} continueLabel="Complete lesson" /> : null}
           {section === "complete" ? <Completion lesson={lesson} result={quizResult} practiced={practicePassed} /> : null}
@@ -187,7 +190,104 @@ function Grammar({ lesson, onContinue }: { lesson: PublicLesson; onContinue: () 
 }
 
 function Reading({ lesson, onContinue }: { lesson: PublicLesson; onContinue: () => void }) {
-  return <div><LessonHeading eyebrow="Reading · mini dialogue" title={lesson.reading.title} description="Follow the exchange, notice how the language works in context, and use the translation only when you need it." /><div className="mt-8 rounded-[28px] border border-border bg-card p-5 sm:p-7">{lesson.reading.lines.map((line, index) => <div key={`${line.speaker}-${index}`} className={`flex gap-4 py-4 ${index ? "border-t border-border" : ""}`}><span className="grid size-10 shrink-0 place-items-center rounded-full bg-muted text-xs font-black">{line.speaker.slice(0, 1)}</span><div><p className="text-xs font-bold uppercase tracking-wide text-progress">{line.speaker}</p><p className="mt-1 text-base font-bold">{line.text}</p><p className="mt-1 text-sm text-muted-foreground">{line.translation}</p></div></div>)}</div><ContinueButton onClick={onContinue}>Try guided practice</ContinueButton></div>;
+  return <div><LessonHeading eyebrow="Reading · mini dialogue" title={lesson.reading.title} description="Read for meaning before opening any translation. Infer unfamiliar language from the situation, then reveal only the lines you need." /><div className="mt-8 rounded-[28px] border border-border bg-card p-5 sm:p-7">{lesson.reading.lines.map((line, index) => <div key={`${line.speaker}-${index}`} className={`flex gap-4 py-4 ${index ? "border-t border-border" : ""}`}><span className="grid size-10 shrink-0 place-items-center rounded-full bg-muted text-xs font-black">{line.speaker.slice(0, 1)}</span><div className="min-w-0 flex-1"><p className="text-xs font-bold uppercase tracking-wide text-progress">{line.speaker}</p><p className="mt-1 text-base font-bold">{line.text}</p><details className="mt-2"><summary className="cursor-pointer text-xs font-bold text-muted-foreground">Reveal this line’s meaning</summary><p className="mt-2 text-sm text-muted-foreground">{line.translation}</p></details></div></div>)}</div><ContinueButton onClick={onContinue}>Use all four skills</ContinueButton></div>;
+}
+
+type RecognitionResult = Readonly<{ 0: Readonly<{ transcript: string }> }>;
+type RecognitionEvent = Readonly<{ results: ArrayLike<RecognitionResult> }>;
+type Recognition = { lang: string; interimResults: boolean; maxAlternatives: number; onresult: ((event: RecognitionEvent) => void) | null; onerror: (() => void) | null; onend: (() => void) | null; start(): void };
+type RecognitionConstructor = new () => Recognition;
+
+function SkillStudio({ lesson, speech, onContinue }: { lesson: PublicLesson; speech: GermanSpeech; onContinue: () => void }) {
+  const targets = lesson.levelCode === "A1"
+    ? { writing: 20, reading: 8, speaking: 10, seconds: 30 }
+    : lesson.levelCode === "A2"
+      ? { writing: 40, reading: 15, speaking: 20, seconds: 45 }
+      : { writing: 70, reading: 25, speaking: 35, seconds: 60 };
+  const listeningModel = lesson.sentences[0];
+  const [dictation, setDictation] = useState("");
+  const [dictationScore, setDictationScore] = useState<number | null>(null);
+  const [readingSummary, setReadingSummary] = useState("");
+  const [writing, setWriting] = useState("");
+  const [speaking, setSpeaking] = useState("");
+  const [listening, setListening] = useState(false);
+  const [recognitionMessage, setRecognitionMessage] = useState<string | null>(null);
+  const readingWords = wordCount(readingSummary);
+  const writingWords = wordCount(writing);
+  const speakingWords = wordCount(speaking);
+  const dictationPassed = (dictationScore ?? 0) >= 80;
+  const complete = dictationPassed && readingWords >= targets.reading && writingWords >= targets.writing && speakingWords >= targets.speaking;
+
+  function checkDictation() {
+    setDictationScore(productionMatchPercent(listeningModel.text, dictation));
+  }
+
+  function startRecognition() {
+    const speechWindow = window as typeof window & { SpeechRecognition?: RecognitionConstructor; webkitSpeechRecognition?: RecognitionConstructor };
+    const RecognitionApi = speechWindow.SpeechRecognition ?? speechWindow.webkitSpeechRecognition;
+    if (!RecognitionApi) {
+      setRecognitionMessage("Speech recognition is unavailable here. Speak for the full time, then type what you said as your transcript.");
+      return;
+    }
+    const recognition = new RecognitionApi();
+    recognition.lang = "de-DE";
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+    recognition.onresult = (event) => {
+      setSpeaking(event.results[0]?.[0]?.transcript ?? "");
+      setRecognitionMessage("Transcript captured. Add anything the browser missed before continuing.");
+    };
+    recognition.onerror = () => setRecognitionMessage("The microphone could not capture that attempt. Try again or type your transcript.");
+    recognition.onend = () => setListening(false);
+    setListening(true);
+    recognition.start();
+  }
+
+  return <div>
+    <LessonHeading eyebrow="Four-skill studio · required production" title="Turn this lesson into usable German." description="Recognition is not mastery. Complete each task from memory, then use the feedback and lesson models to repair your answer." />
+    <div className="mt-8 space-y-5">
+      <section className="rounded-2xl border border-border bg-card p-5 sm:p-6">
+        <p className="text-xs font-bold uppercase tracking-wide text-progress">1 · Listening and dictation</p>
+        <h2 className="font-display mt-2 text-2xl font-bold">Listen without reading.</h2>
+        <p className="mt-2 text-sm leading-6 text-muted-foreground">Play the sentence up to three times, type exactly what you hear, and reach an 80% match.</p>
+        <Button type="button" variant="outline" className="mt-4" disabled={speech.activeText === listeningModel.text && speech.isBusy} onClick={() => speech.speak(listeningModel.text)}><Headphones />{speech.activeText === listeningModel.text && speech.isBusy ? "Playing German…" : "Play hidden sentence"}</Button>
+        <textarea aria-label="German dictation" rows={3} value={dictation} onChange={(event) => { setDictation(event.target.value); setDictationScore(null); }} className="mt-4 w-full rounded-xl border border-border bg-background px-4 py-3 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" placeholder="Type the German sentence you hear" />
+        <div className="mt-3 flex flex-wrap items-center gap-3"><Button type="button" size="sm" onClick={checkDictation} disabled={!dictation.trim()}>Check dictation</Button>{dictationScore !== null ? <p className={`text-sm font-bold ${dictationPassed ? "text-progress" : "text-destructive"}`}>{dictationScore}% match · {dictationPassed ? "passed" : "listen, compare, and retry"}</p> : null}</div>
+        {dictationScore !== null ? <p className="mt-3 rounded-xl bg-muted p-3 text-sm"><strong>Model:</strong> {listeningModel.text}</p> : null}
+      </section>
+
+      <section className="rounded-2xl border border-border bg-card p-5 sm:p-6">
+        <p className="text-xs font-bold uppercase tracking-wide text-progress">2 · Reading response</p>
+        <h2 className="font-display mt-2 text-2xl font-bold">Summarize the dialogue in German.</h2>
+        <p className="mt-2 text-sm leading-6 text-muted-foreground">Without copying, write at least {targets.reading} words explaining the situation, the speakers’ goal, or the result.</p>
+        <textarea aria-label="German reading summary" rows={4} value={readingSummary} onChange={(event) => setReadingSummary(event.target.value)} className="mt-4 w-full rounded-xl border border-border bg-background px-4 py-3 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" placeholder={`Write at least ${targets.reading} German words`} />
+        <p className="mt-2 text-xs font-bold text-muted-foreground">{readingWords}/{targets.reading} words</p>
+      </section>
+
+      <section className="rounded-2xl border border-border bg-card p-5 sm:p-6">
+        <p className="text-xs font-bold uppercase tracking-wide text-progress">3 · Connected writing</p>
+        <h2 className="font-display mt-2 text-2xl font-bold">Complete the lesson mission.</h2>
+        <p className="mt-2 text-sm leading-6 text-muted-foreground">Write at least {targets.writing} words in German. {lesson.summary} Address these goals: {lesson.objectives.join("; ")}. Use the grammar pattern and at least two lesson phrases.</p>
+        <textarea aria-label="German connected writing" rows={7} value={writing} onChange={(event) => setWriting(event.target.value)} className="mt-4 w-full rounded-xl border border-border bg-background px-4 py-3 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" placeholder={`Write at least ${targets.writing} German words`} />
+        <p className="mt-2 text-xs font-bold text-muted-foreground">{writingWords}/{targets.writing} words · check verb position, noun capitalization, endings, and connectors</p>
+      </section>
+
+      <section className="rounded-2xl border border-border bg-card p-5 sm:p-6">
+        <p className="text-xs font-bold uppercase tracking-wide text-progress">4 · Speaking and repair</p>
+        <h2 className="font-display mt-2 text-2xl font-bold">Speak without reading your paragraph.</h2>
+        <p className="mt-2 text-sm leading-6 text-muted-foreground">Speak for about {targets.seconds} seconds and cover the same mission. If you get stuck, paraphrase, correct yourself, or ask for a moment instead of switching languages.</p>
+        <Button type="button" variant="outline" className="mt-4" disabled={listening} onClick={startRecognition}><MessageCircleMore />{listening ? "Listening…" : "Capture German speech"}</Button>
+        <textarea aria-label="German speaking transcript" rows={5} value={speaking} onChange={(event) => setSpeaking(event.target.value)} className="mt-4 w-full rounded-xl border border-border bg-background px-4 py-3 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" placeholder="Use the microphone or type what you said" />
+        <p className="mt-2 text-xs font-bold text-muted-foreground">{speakingWords}/{targets.speaking} transcript words</p>
+        {recognitionMessage ? <p className="mt-2 text-xs font-semibold text-muted-foreground" aria-live="polite">{recognitionMessage}</p> : null}
+      </section>
+    </div>
+    <div className="mt-8 flex flex-col items-end gap-2"><Button size="lg" disabled={!complete} onClick={onContinue}>Continue to guided practice<ArrowRight /></Button>{!complete ? <p className="text-xs font-semibold text-muted-foreground">Complete all four tasks to continue.</p> : null}</div>
+  </div>;
+}
+
+function wordCount(value: string): number {
+  return value.trim() ? value.trim().split(/\s+/u).length : 0;
 }
 
 function AssessmentSection({ title, eyebrow, description, questions, assessmentType, lessonId, signedIn, signInPath, onPassed, continueLabel }: { title: string; eyebrow: string; description: string; questions: readonly PublicChoiceQuestion[]; assessmentType: "practice" | "quiz"; lessonId: string; signedIn: boolean; signInPath: string; onPassed: (result: GradeResult) => void; continueLabel: string }) {

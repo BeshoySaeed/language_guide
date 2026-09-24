@@ -1,6 +1,6 @@
 # Language Guide Web
 
-Phase 10 expands the German curriculum after the completed foundation, learning, personal features, practice, offline, polish, testing, and authentication phases. The internally reviewed A1 curriculum now meets its authored coverage gates; A2, B1, native-speaker review, and the real learner pilot remain in progress.
+Phase 10 expands the German curriculum after the completed foundation, learning, personal features, practice, offline, polish, testing, and authentication phases. A1 meets its authored count gate. A2 and B1 have complete 42-lesson structures, but their synthetic supplemental vocabulary is quarantined while it is replaced with individually authored material. Native-speaker review and the real learner pilot remain in progress.
 
 ## Implemented surface
 
@@ -9,7 +9,7 @@ Phase 10 expands the German curriculum after the completed foundation, learning,
 - Accurate streaks, active days, tracked minutes, completions, saved words, reviews, and quiz bests calculated from recorded events in the learner's timezone
 - Focused German curriculum with supported A1, A2, and B1 learning paths
 - Authenticated, durable enrollment save/read flow
-- Fifty-four complete German lessons across A1–B1: forty-two A1, six A2, and six B1
+- One hundred twenty-six complete German lessons across A1–B1: forty-two lessons at each level
 - A reordered A1 foundation chapter covering spelling, pronunciation, and core German sentence structure
 - A second reviewed A1 chapter covering personal details, family and home, and daily routines
 - A third reviewed A1 chapter covering groceries, local transport, and simple appointments
@@ -20,13 +20,13 @@ Phase 10 expands the German curriculum after the completed foundation, learning,
 - An A1 food and shopping chapter covering meals, preferences, restaurant service, clothes, colors, sizes, and polite orders
 - A1 travel, communication, safety, grammar-consolidation, bridge, and cumulative production chapters
 - Exactly 1,000 reviewed A1 vocabulary/form cards and 300 reusable A1 sentence cards, balanced across practical themes
-- A second reviewed A2 chapter covering clothing purchases, city directions, and everyday health
-- A second reviewed B1 chapter covering further education, travel disruption, and community participation
+- A complete 14-chapter A2 sequence with 318 reusable sentence cards and a vocabulary bank under quality rebuild
+- A complete 14-chapter B1 sequence with 318 reusable sentence cards and a vocabulary bank under quality rebuild
 - Multi-chapter German course contracts with stable course and chapter lesson ordering
 - Chapter-aware learning maps with both chapter and overall course progress
 - Sequential signed-in progression with enforced prerequisites and a deterministic next-lesson recommendation
-- A 21-question A1 final assessment across vocabulary, sentences, grammar, reading, listening, writing, and speaking, plus 15-question A2 and B1 checkpoints
-- A persisted A1 mastery gate requiring every lesson, 80%+ lesson quizzes, 80% overall on the final, 70% in every skill, and no due review backlog before recommending A2
+- 21-question A1, A2, and B1 final assessments across vocabulary, sentences, grammar, reading, listening, writing, and speaking, with tolerant word-order-aware matching for controlled production
+- Persisted mastery gates at every level requiring every lesson, 80%+ lesson quizzes, 80% overall on the final, 70% in every skill, and no due review backlog before recommending the next level
 - Vocabulary pronunciation, contextual phrases, focused grammar, and a mini dialogue
 - German-only voice selection with loaded-voice waiting, interruption-safe playback, and clear unsupported-device feedback
 - Installable PWA runtime with an offline lesson library and explicit per-lesson downloads
@@ -98,4 +98,4 @@ The initial authentication scope does not yet include email verification or pass
 
 ## Phase boundary
 
-The product now proves the authored-content → lesson → assessment → progress loop, the save → library → review → reschedule loop, the generate → play → grade → persist puzzle loop, the level-test → skill feedback → recommended review loop, and the download → learn offline → queue → reconcile loop. The current content is still a curriculum preview, not yet a complete A1-to-B1 course: run `npm run curriculum:audit` and see `CURRICULUM.md` for the remaining content, native-review, and learner-pilot gates. See `OFFLINE.md` for storage, privacy, sync, and conflict rules.
+The product proves the authored-content → lesson → assessment → progress loop, the save → library → review → reschedule loop, the generate → play → grade → persist puzzle loop, the level-test → skill feedback → recommended review loop, and the download → learn offline → queue → reconcile loop. It does not yet meet the self-contained strong-B1 outcome gate: run `npm run curriculum:audit` and see `CURRICULUM.md` plus `quality/self-contained-b1-plan.md`. See `OFFLINE.md` for storage, privacy, sync, and conflict rules.

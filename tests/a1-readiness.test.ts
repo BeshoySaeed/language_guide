@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 
-import { evaluateA1Readiness } from "../packages/domain/src/a1-readiness.ts";
+import { evaluateA1Readiness, evaluateA2Readiness, evaluateB1Readiness } from "../packages/domain/src/a1-readiness.ts";
 import { LEVEL_ASSESSMENT_SKILLS } from "../packages/domain/src/level-assessment.ts";
 
 const lessons = ["one", "two", "three"];
@@ -23,5 +23,19 @@ describe("A1 readiness", () => {
     const weak = evaluateA1Readiness({ requiredLessonIds: lessons, lessonProgress: mastered, assessment: weakAssessment, dueReviewCount: 0 });
     assert.equal(weak.nextAction, "review_skills");
     assert.deepEqual(weak.weakSkills, ["speaking"]);
+  });
+
+  it("applies the same seven-skill mastery gate before B1", () => {
+    const ready = evaluateA2Readiness({ requiredLessonIds: lessons, lessonProgress: mastered, assessment, dueReviewCount: 0 });
+    assert.equal(ready.ready, true);
+    assert.equal(ready.nextAction, "start_next_level");
+    assert.match(ready.requirements[0].label, /A2/);
+  });
+
+  it("applies the same seven-skill mastery gate before B2", () => {
+    const ready = evaluateB1Readiness({ requiredLessonIds: lessons, lessonProgress: mastered, assessment, dueReviewCount: 0 });
+    assert.equal(ready.ready, true);
+    assert.equal(ready.nextAction, "start_next_level");
+    assert.match(ready.requirements[0].label, /B1/);
   });
 });

@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 
-import { gradeAttempt, normalizeAnswer } from "../packages/domain/src/assessment.ts";
+import { gradeAttempt, normalizeAnswer, productionMatchPercent } from "../packages/domain/src/assessment.ts";
 
 const questions = [
   { id: "q1", prompt: "bread", correctAnswer: "das Brot" },
@@ -32,5 +32,25 @@ describe("gradeAttempt", () => {
     assert.equal(result.score, 0);
     assert.equal(result.passed, false);
     assert.equal(result.answers[0].feedbackCode, "missing");
+  });
+
+  it("tolerates small production differences without weakening exact questions", () => {
+    const production = gradeAttempt([{
+      id: "production",
+      prompt: "I would like to arrange an appointment.",
+      correctAnswer: "Ich würde gern einen Termin vereinbaren.",
+      gradingMode: "production_text",
+    }], [{ exerciseId: "production", response: "Ich würde gerne einen Termin vereinbaren" }], 80);
+    const exact = gradeAttempt(questions, [{ exerciseId: "q1", response: "Brot" }], 80);
+
+    assert.equal(production.answers[0].correct, true);
+    assert.ok((production.answers[0].matchPercent ?? 0) >= 88);
+    assert.equal(exact.answers[0].correct, false);
+  });
+
+  it("rewards word order and rejects a word salad with the same vocabulary", () => {
+    const expected = "Ich würde gern einen Termin vereinbaren.";
+    assert.equal(productionMatchPercent(expected, "Ich würde gern einen Termin vereinbaren"), 100);
+    assert.ok(productionMatchPercent(expected, "einen Termin Ich vereinbaren würde gern") < 60);
   });
 });

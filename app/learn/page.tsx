@@ -12,7 +12,7 @@ import { getLanguageCatalog } from "@/packages/application/src/get-language-cata
 import { languageRepository } from "@/infrastructure/catalog/configured-language-repository";
 import { GERMAN_LEVELS, getGermanCourse, isGermanLevel, listPublicLessons, type GermanLevel } from "@/infrastructure/catalog/lesson-content";
 import { calculateLessonAccess } from "@/packages/domain/src/curriculum-progression";
-import { evaluateA1Readiness, type A1Readiness } from "@/packages/domain/src/a1-readiness";
+import { evaluateLevelReadiness, type A1Readiness } from "@/packages/domain/src/a1-readiness";
 import type { LevelAssessmentSkill } from "@/packages/domain/src/level-assessment";
 import { countDueReviews } from "@/infrastructure/learning/personal-library";
 
@@ -25,7 +25,7 @@ export default async function LearnPage({ searchParams }: { searchParams: Promis
   const course = getGermanCourse(activeLevel);
   const lessons = listPublicLessons(activeLevel);
   const progressRows = user ? await loadCourseProgress(user.userId) : [];
-  const a1Readiness = user && activeLevel === "A1" ? await loadA1Readiness(user.userId, progressRows) : null;
+  const levelReadiness = user ? await loadLevelReadiness(user.userId, activeLevel, progressRows) : null;
   const progressByLesson = new Map(progressRows.map((row) => [row.lessonId, row]));
   const accessByLesson = new Map(calculateLessonAccess(lessons.map((lesson) => lesson.id), progressRows, Boolean(user)).map((access) => [access.lessonId, access]));
   const completedLessons = lessons.filter((lesson) => progressByLesson.get(lesson.id)?.state === "completed").length;
@@ -41,7 +41,7 @@ export default async function LearnPage({ searchParams }: { searchParams: Promis
       <header className="border-b border-border bg-card/90 px-5 py-4 backdrop-blur sm:px-8">
         <div className="mx-auto flex max-w-[1180px] items-center justify-between gap-4">
           <Link href="/" className="flex min-h-11 items-center gap-2 text-sm font-bold"><ArrowLeft className="size-4" aria-hidden="true" />Dashboard</Link>
-          <div className="flex items-center gap-4">{activeLevel === "A1" ? <Link href="/vocabulary" className="text-sm font-bold text-muted-foreground transition hover:text-foreground">A1 word bank</Link> : null}<Link href="/offline" className="flex min-h-11 items-center gap-2 text-sm font-bold text-muted-foreground transition hover:text-foreground"><CloudOff className="size-4" aria-hidden="true" />Offline lessons</Link></div>
+          <div className="flex items-center gap-4"><Link href={`/vocabulary?level=${activeLevel}`} className="text-sm font-bold text-muted-foreground transition hover:text-foreground">{activeLevel} word bank</Link><Link href="/offline" className="flex min-h-11 items-center gap-2 text-sm font-bold text-muted-foreground transition hover:text-foreground"><CloudOff className="size-4" aria-hidden="true" />Offline lessons</Link></div>
         </div>
       </header>
       <div className="mx-auto max-w-[1180px] px-5 py-9 sm:px-8 lg:py-12">
@@ -52,7 +52,7 @@ export default async function LearnPage({ searchParams }: { searchParams: Promis
             <div className="w-full rounded-2xl border border-border bg-card p-4 sm:w-64"><div className="flex justify-between text-sm font-bold"><span>Course progress</span><span>{completedLessons} / {lessons.length}</span></div><Progress value={coursePercent} className="mt-3" aria-label={`Course progress: ${coursePercent} percent`} /></div>
           </div>
 
-          {activeLevel === "A1" ? <A1ReadinessPanel readiness={a1Readiness} signedIn={Boolean(user)} lessons={lessons} /> : null}
+          <LevelReadinessPanel level={activeLevel} readiness={levelReadiness} signedIn={Boolean(user)} lessons={lessons} />
 
           <div className="mt-10 grid gap-12">
             {chapters.map((chapter, chapterIndex) => (
@@ -85,7 +85,7 @@ export default async function LearnPage({ searchParams }: { searchParams: Promis
         </section>
 
         <section className="mt-12 flex flex-col gap-5 rounded-[28px] bg-ink p-6 text-white sm:flex-row sm:items-center sm:justify-between sm:p-8">
-          <div className="flex items-start gap-4"><span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-white/10"><ClipboardCheck className="size-5" /></span><div><p className="text-sm font-bold text-white/65">German {activeLevel} checkpoint</p><h2 className="font-display mt-1 text-2xl font-bold">Test {activeLevel === "A1" ? "all seven" : "all five"} skills.</h2><p className="mt-2 max-w-xl text-sm leading-6 text-white/65">{activeLevel === "A1" ? "Vocabulary, sentences, grammar, reading, listening, writing, and speaking—with a 70% floor in every skill." : "Vocabulary, sentences, grammar, reading, and listening with focused recommendations after the result."}</p></div></div>
+          <div className="flex items-start gap-4"><span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-white/10"><ClipboardCheck className="size-5" /></span><div><p className="text-sm font-bold text-white/65">German {activeLevel} checkpoint</p><h2 className="font-display mt-1 text-2xl font-bold">Test all seven skills.</h2><p className="mt-2 max-w-xl text-sm leading-6 text-white/65">Vocabulary, sentences, grammar, reading, listening, writing, and speaking—with a 70% floor in every skill.</p></div></div>
           <Button asChild size="lg" className="shrink-0 bg-white text-ink hover:bg-white/90"><Link href={`/tests/${activeLevel.toLowerCase()}`}>Take level test<ArrowRight /></Link></Button>
         </section>
 
@@ -123,37 +123,39 @@ async function loadCourseProgress(userId: string) {
   }
 }
 
-async function loadA1Readiness(userId: string, progress: Awaited<ReturnType<typeof loadCourseProgress>>): Promise<A1Readiness | null> {
+async function loadLevelReadiness(userId: string, level: GermanLevel, progress: Awaited<ReturnType<typeof loadCourseProgress>>): Promise<A1Readiness | null> {
   try {
-    const lessons = listPublicLessons("A1");
+    const lessons = listPublicLessons(level);
     const [[latest], dueReviewCount] = await Promise.all([
-      getDb().select().from(levelAssessmentResults).where(and(eq(levelAssessmentResults.userId, userId), eq(levelAssessmentResults.levelCode, "A1"))).orderBy(desc(levelAssessmentResults.completedAt)).limit(1),
+      getDb().select().from(levelAssessmentResults).where(and(eq(levelAssessmentResults.userId, userId), eq(levelAssessmentResults.levelCode, level))).orderBy(desc(levelAssessmentResults.completedAt)).limit(1),
       countDueReviews(userId),
     ]);
-    return evaluateA1Readiness({
+    return evaluateLevelReadiness({
+      levelCode: level,
       requiredLessonIds: lessons.map((lesson) => lesson.id),
       lessonProgress: progress,
       assessment: latest ? { percent: latest.overallPercent, passed: latest.passed, skills: latest.skills as readonly { skill: LevelAssessmentSkill; percent: number }[] } : null,
       dueReviewCount,
     });
   } catch (error) {
-    console.error("Failed to load A1 readiness", error);
+    console.error(`Failed to load ${level} readiness`, error);
     return null;
   }
 }
 
-function A1ReadinessPanel({ readiness, signedIn, lessons }: { readiness: A1Readiness | null; signedIn: boolean; lessons: ReturnType<typeof listPublicLessons> }) {
-  if (!signedIn) return <section className="mt-9 rounded-[28px] border border-border bg-card p-6 sm:p-8"><p className="text-sm font-bold text-progress">A1 mastery path</p><h2 className="font-display mt-1 text-2xl font-bold">Sign in to verify when you are ready for A2.</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">Readiness combines all lesson quizzes, the seven-skill A1 final, and your due review queue—not only a completion percentage.</p></section>;
-  if (!readiness) return <section className="mt-9 rounded-[28px] border border-border bg-card p-6"><p className="font-bold">A1 readiness is temporarily unavailable.</p><p className="mt-1 text-sm text-muted-foreground">Your lessons remain available and progress is still saved.</p></section>;
+function LevelReadinessPanel({ level, readiness, signedIn, lessons }: { level: GermanLevel; readiness: A1Readiness | null; signedIn: boolean; lessons: ReturnType<typeof listPublicLessons> }) {
+  const nextLevel = level === "A1" ? "A2" : level === "A2" ? "B1" : "B2";
+  if (!signedIn) return <section className="mt-9 rounded-[28px] border border-border bg-card p-6 sm:p-8"><p className="text-sm font-bold text-progress">{level} mastery path</p><h2 className="font-display mt-1 text-2xl font-bold">Sign in to verify when you are ready for {nextLevel}.</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">Readiness combines all lesson quizzes, the seven-skill {level} final, and your due review queue—not only a completion percentage.</p></section>;
+  if (!readiness) return <section className="mt-9 rounded-[28px] border border-border bg-card p-6"><p className="font-bold">{level} readiness is temporarily unavailable.</p><p className="mt-1 text-sm text-muted-foreground">Your lessons remain available and progress is still saved.</p></section>;
   const firstReview = lessons.find((lesson) => lesson.id === readiness.reviewLessonIds[0]);
   const action = readiness.nextAction === "continue_lessons" || readiness.nextAction === "strengthen_quizzes"
-    ? { label: firstReview ? `Review ${firstReview.title}` : "Continue A1", href: firstReview ? `/learn/de/a1/${firstReview.slug}` : "/learn?level=A1" }
-    : readiness.nextAction === "take_assessment" ? { label: "Take the A1 final", href: "/tests/a1" }
-      : readiness.nextAction === "review_skills" ? { label: "Review and retry final", href: "/tests/a1" }
+    ? { label: firstReview ? `Review ${firstReview.title}` : `Continue ${level}`, href: firstReview ? `/learn/de/${level.toLowerCase()}/${firstReview.slug}` : `/learn?level=${level}` }
+    : readiness.nextAction === "take_assessment" ? { label: `Take the ${level} final`, href: `/tests/${level.toLowerCase()}` }
+      : readiness.nextAction === "review_skills" ? { label: "Review and retry final", href: `/tests/${level.toLowerCase()}` }
         : readiness.nextAction === "clear_review" ? { label: `Review ${readiness.dueReviewCount} due item${readiness.dueReviewCount === 1 ? "" : "s"}`, href: "/review" }
-          : { label: "Start A2", href: "/learn?level=A2" };
+          : level === "B1" ? { label: "View your progress", href: "/progress" } : { label: `Start ${nextLevel}`, href: `/learn?level=${nextLevel}` };
   return <section className={`mt-9 rounded-[28px] border p-6 sm:p-8 ${readiness.ready ? "border-progress/40 bg-accent" : "border-border bg-card"}`}>
-    <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between"><div><p className="text-sm font-bold text-progress">A1 mastery path</p><h2 className="font-display mt-1 text-2xl font-bold">{readiness.ready ? "Your measured A1 foundation is ready for A2." : "Build evidence before moving to A2."}</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">{readiness.completedLessons}/{readiness.requiredLessons} lessons complete · {readiness.masteredLessons}/{readiness.requiredLessons} quizzes at 80%+ · final {readiness.assessmentPercent === null ? "not taken" : `${readiness.assessmentPercent}%`} · {readiness.dueReviewCount} reviews due</p></div><Button asChild><Link href={action.href}>{action.label}<ArrowRight /></Link></Button></div>
+    <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between"><div><p className="text-sm font-bold text-progress">{level} mastery path</p><h2 className="font-display mt-1 text-2xl font-bold">{readiness.ready ? `Your measured ${level} foundation is ready for ${nextLevel}.` : `Build evidence before moving to ${nextLevel}.`}</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">{readiness.completedLessons}/{readiness.requiredLessons} lessons complete · {readiness.masteredLessons}/{readiness.requiredLessons} quizzes at 80%+ · final {readiness.assessmentPercent === null ? "not taken" : `${readiness.assessmentPercent}%`} · {readiness.dueReviewCount} reviews due</p></div><Button asChild><Link href={action.href}>{action.label}<ArrowRight /></Link></Button></div>
     <ul className="mt-5 grid gap-2 sm:grid-cols-2">{readiness.requirements.map((requirement) => <li key={requirement.id} className="flex items-center gap-2 text-sm font-semibold"><span className={`grid size-6 place-items-center rounded-full ${requirement.met ? "bg-progress text-white" : "bg-muted text-muted-foreground"}`}>{requirement.met ? <Check className="size-3.5" /> : "·"}</span>{requirement.label}</li>)}</ul>
     {readiness.weakSkills.length ? <p className="mt-4 text-sm font-semibold text-destructive">Needs more practice: {readiness.weakSkills.join(", ")}.</p> : null}
   </section>;
